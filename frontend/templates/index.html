@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>이미지 객체 분류 게시판</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>📸 이미지 객체 분류 서비스</h1>
+
+        <nav>
+            <a href="/">홈</a>
+            <a href="/board">게시판</a>
+        </nav>
+    </header>
+
+
+    <section class="upload-box">
+
+        <h2>이미지 업로드</h2>
+
+        <form id="predictForm">
+            <input type="file" id="imageInput" accept="image/*">
+            <button type="submit">
+                분류 시작
+            </button>
+        </form>
+
+    </section>
+
+
+    <section id="previewSection">
+        <img id="preview">
+    </section>
+
+
+    <section id="resultBox">
+        <h2>예측 결과</h2>
+
+        <p>
+            클래스 :
+            <span id="predictedClass"></span>
+        </p>
+
+        <p>
+            신뢰도 :
+            <span id="confidence"></span>
+        </p>
+
+        <ul id="topK"></ul>
+
+        <button id="savePostBtn">
+            게시글로 저장
+        </button>
+    </section>
+
+    <script src="/static/js/predict.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+body{
+font-family:sans-serif;
+max-width:1000px;
+margin:auto;
+padding:30px;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+margin-bottom:30px;
+}
+
+.upload-box{
+padding:30px;
+border:1px solid #ddd;
+border-radius:10px;
+}
+
+button{
+padding:12px 20px;
+cursor:pointer;
+}
+
+#preview{
+max-width:400px;
+margin-top:20px;
+}
+
+.card{
+border:1px solid #ddd;
+padding:20px;
+margin:20px 0;
+border-radius:12px;
+}
