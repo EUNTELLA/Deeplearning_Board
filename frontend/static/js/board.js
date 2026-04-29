@@ -1,32 +1,12 @@
-loadPosts();
-
-async function loadPosts(){
-
-const res=await fetch("/api/v1/posts");
-
-const data=await res.json();
-
-let box=document.getElementById("postList");
-
-box.innerHTML="";
-
-data.items.forEach(post=>{
-
-box.innerHTML+=`
-<div class="card">
-
-<h3>
-<a href="/posts/${post.id}">
-${post.title}
+postList.innerHTML += `
+<a href="/post/${post.id}" class="post-card">
+   <img src="${post.image_url}">
+   <div class="post-body">
+      <h3>${post.title}</h3>
+      <p>${post.prediction}</p>
+      <span>
+        ${(post.confidence * 100).toFixed(1)}%
+      </span>
+   </div>
 </a>
-</h3>
-
-<p>
-분류 :
-${post.prediction}
-</p>
-
-</div>
 `;
-});
-}

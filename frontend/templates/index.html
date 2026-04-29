@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <title>이미지 객체 분류 게시판</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-
 <body>
 
-    <header>
-        <h1>📸 이미지 객체 분류 서비스</h1>
+    <header class="navbar">
+        <div class="logo">📸 Object Vision</div>
 
         <nav>
             <a href="/">홈</a>
@@ -19,37 +10,53 @@
     </header>
 
 
-    <section class="upload-box">
+    <section class="hero">
+        <h1>
+            AI 이미지 객체 분류 서비스
+        </h1>
 
+        <p>
+            이미지를 업로드하면 객체를 분석하고
+            결과를 게시판에 공유할 수 있어요.
+        </p>
+    </section>
+
+
+    <section class="upload-box card">
         <h2>이미지 업로드</h2>
 
         <form id="predictForm">
-            <input type="file" id="imageInput" accept="image/*">
+            <label class="upload-area">
+                <input type="file" id="imageInput" accept="image/*">
+                <span>
+                    이미지 선택 또는 드래그
+                </span>
+            </label>
+
             <button type="submit">
                 분류 시작
             </button>
         </form>
-
     </section>
 
 
-    <section id="previewSection">
+    <section id="previewSection" class="card">
         <img id="preview">
     </section>
 
 
-    <section id="resultBox">
+    <section id="resultBox" class="card">
         <h2>예측 결과</h2>
 
-        <p>
-            클래스 :
-            <span id="predictedClass"></span>
-        </p>
+        <div class="result-row">
+            <span>클래스</span>
+            <strong id="predictedClass"></strong>
+        </div>
 
-        <p>
-            신뢰도 :
-            <span id="confidence"></span>
-        </p>
+        <div class="result-row">
+            <span>신뢰도</span>
+            <strong id="confidence"></strong>
+        </div>
 
         <ul id="topK"></ul>
 
@@ -61,5 +68,3 @@
     <script src="/static/js/predict.js"></script>
 
 </body>
-
-</html>
