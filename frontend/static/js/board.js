@@ -21,10 +21,11 @@ async function loadPosts({ reset = false } = {}) {
     const res = await fetch(`/api/v1/posts?${params.toString()}`);
     const data = await res.json();
 
-    data.items.forEach((post) => {
+    data.items.forEach((post, index) => {
         const card = document.createElement("a");
         card.href = `/post/${post.id}`;
         card.className = "post-card";
+        card.style.setProperty("--card-delay", `${index * 0.08}s`);
         card.innerHTML = `
             <img src="${post.image_url}" alt="${post.title}">
             <div class="post-body">

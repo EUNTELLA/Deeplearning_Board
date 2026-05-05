@@ -5,11 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Object Vision</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=2">
 </head>
 
 <body>
+    <div id="introOverlay" class="intro-overlay">
+        <div class="intro-backdrop"></div>
+        <div class="intro-content">
+            <button id="introStartBtn" class="intro-start-btn" type="button">
+                시작
+            </button>
+        </div>
+    </div>
 
+    <main id="mainUi" class="main-ui is-hidden">
     <header class="navbar">
         <div class="logo">📸 Object Vision</div>
 
@@ -75,7 +84,8 @@
         </button>
     </section>
 
-    <script src="/static/js/predict.js"></script>
+    </main>
+    <script src="{{ url_for('static', path='js/predict.js') }}?v=2"></script>
 
 </body>
 
