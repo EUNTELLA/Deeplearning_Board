@@ -226,6 +226,33 @@ CI는 `main`, `master` 브랜치에 push하거나 pull request를 만들 때 실
 CI에서는 속도와 안정성을 위해 TensorFlow 모델 추론까지 실행하지 않습니다.  
 실제 모델 추론은 로컬 데모 환경에서 확인합니다.
 
+## 무료 배포
+
+이 프로젝트는 FastAPI, TensorFlow, SQLite를 사용하는 서버형 앱이므로 GitHub Pages에는 그대로 배포할 수 없습니다.  
+무료 배포는 Hugging Face Spaces의 Docker Space를 추천합니다.
+
+### Hugging Face Spaces
+
+1. Hugging Face에서 새 Space를 만듭니다.
+2. SDK는 `Docker`를 선택합니다.
+3. 이 저장소의 파일을 Space 저장소에 push합니다.
+4. Space가 `Dockerfile`을 사용해 앱을 빌드합니다.
+5. 앱은 기본 포트 `7860`에서 실행됩니다.
+
+배포 후에는 다음 기능을 웹에서 사용할 수 있습니다.
+
+- 이미지 업로드 분석
+- 웹캠 촬영 분석
+- 예측 결과 표시
+- 게시글 저장 및 상세 보기
+- 제목 수정
+
+주의 사항:
+
+- 무료 Space의 디스크는 재시작 시 초기화될 수 있으므로 `data/app.db`의 데이터는 장기 보관용으로 보장되지 않습니다.
+- 발표 데모용 저장 기능은 사용할 수 있지만, 장기 보관이 필요하면 별도 DB나 유료 persistent storage가 필요합니다.
+- 첫 빌드는 TensorFlow 설치 때문에 시간이 걸릴 수 있습니다.
+
 ## 참고 사항
 
 - 게시글 데이터는 `data/app.db` SQLite 파일에 저장됩니다.
