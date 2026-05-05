@@ -5,3 +5,5 @@ venv/
 .env
 과제_TM.pdf
 .vscode/
+data/*.db
+data/*.db-*
