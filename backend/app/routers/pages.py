@@ -12,17 +12,18 @@ router = APIRouter()
 
 @router.get("/")
 def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(request, "index.html")
 
 
 @router.get("/board")
 def board(request: Request):
-    return templates.TemplateResponse("board.html", {"request": request})
+    return templates.TemplateResponse(request, "board.html")
 
 
 @router.get("/post/{post_id}")
 def post_detail(request: Request, post_id: int):
     return templates.TemplateResponse(
+        request,
         "post_detail.html",
-        {"request": request, "post_id": post_id},
+        {"post_id": post_id},
     )
