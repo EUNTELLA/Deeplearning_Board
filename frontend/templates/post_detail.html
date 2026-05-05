@@ -3,15 +3,50 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 상세</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
+    <header class="navbar">
+        <h1>게시글 상세</h1>
+        <a href="/board">게시판으로</a>
+    </header>
 
     <div class="card detail-card">
         <div id="postDetail"></div>
     </div>
 
+    <script>
+        const postId = {{ post_id }};
+
+        async function loadPost() {
+            const res = await fetch(`/api/v1/posts/${postId}`);
+            const postDetail = document.getElementById("postDetail");
+
+            if (!res.ok) {
+                postDetail.innerHTML = "<p>게시글을 찾을 수 없습니다.</p>";
+                return;
+            }
+
+            const post = await res.json();
+            postDetail.innerHTML = `
+                <img id="preview" src="${post.image_url}" alt="${post.title}">
+                <h2>${post.title}</h2>
+                <div class="result-row">
+                    <span>클래스</span>
+                    <strong>${post.prediction}</strong>
+                </div>
+                <div class="result-row">
+                    <span>신뢰도</span>
+                    <strong>${(post.confidence * 100).toFixed(1)}%</strong>
+                </div>
+            `;
+        }
+
+        loadPost();
+    </script>
 </body>
 
 </html>
