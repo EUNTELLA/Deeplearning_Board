@@ -8,9 +8,9 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont,
         "SF Pro Display", "Pretendard", sans-serif;
-    max-width: 1100px;
+    max-width: 1040px;
     margin: auto;
-    padding: 48px 24px;
+    padding: clamp(20px, 3vw, 36px) clamp(16px, 2.5vw, 24px);
     background:
         radial-gradient(circle at 18% 12%, rgba(49, 130, 246, .18), transparent 26%),
         radial-gradient(circle at 82% 8%, rgba(0, 194, 168, .16), transparent 24%),
@@ -132,8 +132,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 28px;
-    margin-bottom: 40px;
+    padding: clamp(14px, 1.8vw, 18px) clamp(18px, 2.2vw, 26px);
+    margin-bottom: clamp(24px, 3vw, 34px);
 
     background:
         linear-gradient(135deg, rgba(255, 255, 255, .68), rgba(255, 255, 255, .32));
@@ -174,7 +174,7 @@ header h1 {
 }
 
 .logo {
-    font-size: 22px;
+    font-size: clamp(18px, 2vw, 21px);
     font-weight: 700;
 }
 
@@ -191,18 +191,18 @@ header h1 {
 
 .hero {
     text-align: center;
-    margin: 70px 0 50px;
+    margin: clamp(36px, 5vw, 58px) 0 clamp(28px, 4vw, 42px);
 }
 
 .hero h1 {
-    font-size: 52px;
+    font-size: clamp(32px, 4.8vw, 46px);
     font-weight: 800;
     letter-spacing: 0;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
 }
 
 .hero p {
-    font-size: 20px;
+    font-size: clamp(16px, 2vw, 19px);
     color: #6b7684;
 }
 
@@ -211,7 +211,7 @@ header h1 {
 .upload-box {
     background:
         linear-gradient(135deg, rgba(255, 255, 255, .72), rgba(255, 255, 255, .32));
-    padding: 48px;
+    padding: clamp(26px, 4vw, 40px);
     border-radius: 32px;
     border: 1px solid rgba(255, 255, 255, .72);
     backdrop-filter: blur(30px) saturate(160%);
@@ -241,8 +241,8 @@ header h1 {
 
 .upload-area {
     display: block;
-    margin: 30px 0;
-    padding: 70px;
+    margin: 24px 0;
+    padding: clamp(34px, 6vw, 58px) 20px;
     border: 1px solid rgba(255, 255, 255, .7);
     border-radius: 28px;
     cursor: pointer;
@@ -264,7 +264,7 @@ button {
         linear-gradient(135deg, rgba(49, 130, 246, .94), rgba(0, 194, 168, .82));
     color: white;
     border: 1px solid rgba(255, 255, 255, .46);
-    padding: 14px 26px;
+    padding: 12px 22px;
     font-size: 15px;
     font-weight: 600;
 
@@ -291,7 +291,7 @@ button:active {
 /* ===== Preview Image ===== */
 #preview {
     display: block;
-    max-width: 420px;
+    max-width: 360px;
     width: 100%;
     margin: 30px auto;
     border-radius: 24px;
@@ -309,8 +309,8 @@ button:active {
     backdrop-filter: blur(28px) saturate(155%);
     -webkit-backdrop-filter: blur(28px) saturate(155%);
 
-    padding: 30px;
-    margin: 24px 0;
+    padding: clamp(22px, 3vw, 28px);
+    margin: 20px 0;
 
     border-radius: 28px;
 
@@ -331,7 +331,7 @@ button:active {
 }
 
 .card h2 {
-    font-size: 24px;
+    font-size: clamp(20px, 2.4vw, 23px);
     font-weight: 700;
     margin-bottom: 12px;
     letter-spacing: 0;
@@ -381,9 +381,9 @@ button:active {
 
 .post-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(18px, 2.4vw, 26px);
+    margin-top: 24px;
 }
 
 .post-card {
@@ -412,7 +412,7 @@ button:active {
 
 .post-card img {
     width: 100%;
-    height: 240px;
+    height: clamp(170px, 20vw, 220px);
     object-fit: cover;
     filter: saturate(1.04) contrast(1.02);
 }
@@ -430,11 +430,11 @@ button:active {
 }
 
 .post-body {
-    padding: 24px;
+    padding: 20px;
 }
 
 .post-body h3 {
-    font-size: 22px;
+    font-size: 19px;
     margin-bottom: 10px;
 }
 
@@ -443,21 +443,32 @@ button:active {
     margin-bottom: 14px;
 }
 
+.empty-state {
+    grid-column: 1 / -1;
+    padding: 36px 20px;
+    text-align: center;
+    color: #6b7684;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, .58), rgba(255, 255, 255, .24));
+    border: 1px solid rgba(255, 255, 255, .68);
+    border-radius: 18px;
+    backdrop-filter: blur(22px) saturate(145%);
+    -webkit-backdrop-filter: blur(22px) saturate(145%);
+}
+
 
 /* ===== Mobile ===== */
 @media(max-width:768px) {
 
-    body {
-        padding: 24px 18px;
-    }
-
     header {
-        padding: 18px 20px;
         border-radius: 20px;
+        gap: 16px;
+        align-items: flex-start;
+        flex-direction: column;
     }
 
     header h1 {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     .upload-box {
@@ -470,7 +481,7 @@ button:active {
     }
 
     .hero h1 {
-        font-size: 36px;
+        font-size: 32px;
     }
 
     .upload-area {

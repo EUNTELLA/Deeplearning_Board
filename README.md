@@ -13,8 +13,8 @@ Teachable Machine으로 만든 이미지 분류 모델을 웹에서 실행하고
 - 예측 결과 표시 UI 구성
 - 게시판 화면(`/board`) 구성
 - 게시글 상세 화면(`/post/{id}`) 구성
-- 게시글 목록/상세/저장용 더미 API 구성
-- 모델 연결 전 더미 예측 API 구성
+- 게시글 목록/상세/저장용 API 기본 구조 구성
+- 모델 미연동 상태를 알려주는 예측 API 구조 구성
 - liquid glass 스타일 UI 적용
 - 메인 진입 애니메이션 적용
 - 게시판 카드 순차 슬라이드 애니메이션 적용
@@ -27,7 +27,6 @@ Teachable Machine으로 만든 이미지 분류 모델을 웹에서 실행하고
 - Teachable Machine에서 TensorFlow/Keras 형식으로 모델 내보내기
 - `ai/model/model.keras` 또는 `.h5` 모델 파일 교체
 - `ai/model/labels.txt` 라벨 파일 교체
-- `backend/app/services/classifier_service.py`에서 더미 응답 제거
 - 실제 모델 로딩 및 이미지 예측 로직 연결
 - 게시판 필터를 실제 라벨 기준으로 변경
 - 예측 결과 저장 시 업로드 이미지 저장 방식 정리
@@ -64,7 +63,7 @@ http://127.0.0.1:8000
 현재 API는 모델 연동 전 기본 연결 확인용입니다.
 
 - `POST /api/v1/predict`
-  - 이미지 파일을 업로드하면 더미 예측 결과를 반환합니다.
+  - 현재는 모델 미연동 상태를 반환합니다.
   - 추후 실제 Teachable Machine 모델 추론으로 교체해야 합니다.
 
 - `GET /api/v1/posts`

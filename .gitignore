@@ -4,3 +4,4 @@ __pycache__/
 venv/
 .env
 과제_TM.pdf
+.vscode/

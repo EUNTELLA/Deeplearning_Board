@@ -6,6 +6,13 @@ let skip = 0;
 const limit = 6;
 let currentCategory = "";
 
+function showEmptyMessage() {
+    const emptyMessage = document.createElement("p");
+    emptyMessage.className = "empty-state";
+    emptyMessage.innerText = "아직 저장된 분류 결과가 없습니다.";
+    postList.insertBefore(emptyMessage, loadMoreBtn);
+}
+
 async function loadPosts({ reset = false } = {}) {
     if (reset) {
         skip = 0;
@@ -20,6 +27,10 @@ async function loadPosts({ reset = false } = {}) {
 
     const res = await fetch(`/api/v1/posts?${params.toString()}`);
     const data = await res.json();
+
+    if (reset && data.total === 0) {
+        showEmptyMessage();
+    }
 
     data.items.forEach((post, index) => {
         const card = document.createElement("a");

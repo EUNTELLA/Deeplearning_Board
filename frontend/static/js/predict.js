@@ -72,6 +72,13 @@ method:"POST",
 body:formData
 });
 
+if(!res.ok){
+const error=await res.json();
+const message=error.detail?.message||"예측을 실행할 수 없습니다.";
+alert(message);
+return;
+}
+
 const data=await res.json();
 latestResult=data;
 resultBox.hidden=false;
