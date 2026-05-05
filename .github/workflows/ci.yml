@@ -1,0 +1,99 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Python dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Compile backend
+        run: python -m compileall backend
+
+      - name: Check frontend JavaScript
+        run: |
+          node --check frontend/static/js/predict.js
+          node --check frontend/static/js/board.js
+
+      - name: Smoke test FastAPI pages and posts
+        run: |
+          python - <<'PY'
+          from fastapi.testclient import TestClient
+          from backend.app.main import app
+
+          client = TestClient(app, raise_server_exceptions=False)
+
+          for path in ["/", "/board", "/post/1"]:
+              response = client.get(path)
+              assert response.status_code == 200, (path, response.status_code, response.text[:300])
+
+          created = client.post(
+              "/api/v1/posts",
+              json={
+                  "title": "CI smoke test",
+                  "image_url": "data:image/png;base64,test",
+                  "prediction": "A",
+                  "confidence": 0.9,
+              },
+          )
+          assert created.status_code == 200, created.text
+
+          post_id = created.json()["id"]
+          updated = client.put(f"/api/v1/posts/{post_id}", json={"title": "CI edited title"})
+          assert updated.status_code == 200, updated.text
+          assert updated.json()["title"] == "CI edited title"
+          PY
+
+      - name: Smoke test model inference when model is present
+        run: |
+          python - <<'PY'
+          from io import BytesIO
+          from pathlib import Path
+
+          from fastapi.testclient import TestClient
+          from PIL import Image
+
+          from backend.app.main import app
+
+          model_path = Path("ai/model/keras_model.h5")
+          labels_path = Path("ai/model/labels.txt")
+
+          if not model_path.exists() or not labels_path.exists():
+              print("Model files are not present; skipping inference smoke test.")
+              raise SystemExit(0)
+
+          image = BytesIO()
+          Image.new("RGB", (224, 224), "white").save(image, format="PNG")
+
+          client = TestClient(app, raise_server_exceptions=False)
+          response = client.post(
+              "/api/v1/predict",
+              files={"file": ("sample.png", image.getvalue(), "image/png")},
+          )
+          assert response.status_code == 200, response.text
+
+          payload = response.json()
+          assert payload["success"] is True
+          assert payload["predicted_class"]
+          assert isinstance(payload["top_k"], list)
+          PY

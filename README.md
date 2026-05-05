@@ -206,6 +206,23 @@ Deeplearning_Board/
 6. 게시판에서 저장된 결과 카드를 확인합니다.
 7. 상세 페이지로 이동한 뒤 `수정하기`로 제목을 수정합니다.
 
+## GitHub Actions
+
+`.github/workflows/ci.yml`에 기본 CI 워크플로를 구성했습니다.
+
+CI는 `main`, `master` 브랜치에 push하거나 pull request를 만들 때 실행됩니다.
+
+검증 항목:
+
+- Python 의존성 설치
+- 백엔드 Python 파일 compile 검사
+- 프론트엔드 JavaScript 문법 검사
+- FastAPI 페이지 및 게시글 API smoke test
+- 모델 파일이 있는 경우 `/api/v1/predict` 추론 smoke test
+
+모델 파일이 GitHub 저장소에 없으면 추론 테스트는 자동으로 건너뜁니다.  
+TensorFlow 설치 때문에 CI 실행 시간이 조금 걸릴 수 있습니다.
+
 ## 참고 사항
 
 - 현재 게시글 데이터는 메모리에 저장되므로 서버를 재시작하면 사라집니다.
