@@ -1,36 +1,49 @@
 # Deeplearning Board
 
-Teachable Machine으로 만든 이미지 분류 모델을 웹에서 실행하고, 예측 결과를 게시판 형태로 확인하는 프로젝트입니다.
+Teachable Machine으로 만든 이미지 분류 모델을 FastAPI 웹 서비스에 연결한 데모 프로젝트입니다.  
+이미지 파일 업로드 또는 웹캠 촬영으로 예측을 실행하고, 결과를 게시판에 저장한 뒤 상세 페이지에서 확인할 수 있습니다.
 
-과제 목표는 `이미지 입력 -> 딥러닝 분류 실행 -> 예측 결과 표출 -> 데모 가능한 웹 UI 구성`입니다.
+## 주요 기능
 
-## 현재 완료된 부분
+- Teachable Machine Keras 모델(`keras_model.h5`) 로딩
+- `labels.txt` 기반 클래스 라벨 표시
+- 이미지 업로드 후 객체/수화 이미지 분류
+- 웹캠으로 촬영한 화면 즉시 분석
+- 예측 결과 Top 5와 신뢰도 막대 표시
+- 예측 결과 게시판 저장
+- 게시글 목록 및 상세 보기
+- 상세 페이지에서 제목 수정
+- 도넛 굿즈 리스트 느낌의 커스텀 UI
 
-- FastAPI 서버 기본 실행 구조 구성
-- 프론트엔드 템플릿과 정적 파일 연결
-- 메인 화면(`/`) 구성
-- 이미지 업로드 UI 구성
-- 예측 결과 표시 UI 구성
-- 게시판 화면(`/board`) 구성
-- 게시글 상세 화면(`/post/{id}`) 구성
-- 게시글 목록/상세/저장용 API 기본 구조 구성
-- 모델 미연동 상태를 알려주는 예측 API 구조 구성
-- liquid glass 스타일 UI 적용
-- 메인 진입 애니메이션 적용
-- 게시판 카드 순차 슬라이드 애니메이션 적용
+## UI 구성
+![alt text](image.png)
+### 메인 화면 (`/`)
 
-## 앞으로 해야 할 부분
+메인 화면은 이미지 분석 작업을 바로 시작할 수 있는 화면입니다.
 
-- Teachable Machine 이미지 프로젝트에서 5~10개 클래스 모델 학습
-- 각 클래스별 이미지 샘플 수집
-- 가능하면 클래스별 200장 이상 확보
-- Teachable Machine에서 TensorFlow/Keras 형식으로 모델 내보내기
-- `ai/model/model.keras` 또는 `.h5` 모델 파일 교체
-- `ai/model/labels.txt` 라벨 파일 교체
-- 실제 모델 로딩 및 이미지 예측 로직 연결
-- 게시판 필터를 실제 라벨 기준으로 변경
-- 예측 결과 저장 시 업로드 이미지 저장 방식 정리
-- 발표/데모용 시나리오와 테스트 이미지 준비
+- 상단에는 핑크 배경과 크림색 드립 형태의 장식 배경이 보입니다.
+- 왼쪽 카드에서 이미지를 선택하거나 드래그해서 업로드할 수 있습니다.
+- 업로드한 이미지는 별도 미리보기 칸이 아니라 업로드 박스 안에 바로 표시됩니다.
+- `웹캠 시작` 버튼으로 카메라를 켜고, `촬영 후 분석`으로 현재 화면을 캡처해 예측할 수 있습니다.
+- 예측이 완료되면 오른쪽 결과 카드에 최종 클래스, 신뢰도, Top 5 확률 막대가 표시됩니다.
+- `게시글로 저장`을 누르면 결과가 게시판에 저장됩니다.
+
+### 게시판 (`/board`)
+
+저장한 예측 결과를 카드 형태로 확인하는 화면입니다.
+
+- 각 카드에는 이미지, 제목, 예측 클래스, 신뢰도가 표시됩니다.
+- 카드 또는 `상세 보기`를 누르면 상세 페이지로 이동합니다.
+- 클래스 필터로 특정 예측 클래스만 볼 수 있습니다.
+
+### 상세 페이지 (`/post/{id}`)
+
+저장된 예측 결과를 자세히 확인하는 화면입니다.
+
+- 이미지와 예측 정보를 2열 레이아웃으로 보여줍니다.
+- 처음에는 제목과 `수정하기` 버튼만 보입니다.
+- `수정하기`를 누르면 제목 입력칸, `저장`, `취소` 버튼이 나타납니다.
+- 제목을 수정하면 `PUT /api/v1/posts/{id}` API로 저장됩니다.
 
 ## 실행 방법
 
@@ -52,88 +65,149 @@ python -m uvicorn backend.app.main:app --reload
 http://127.0.0.1:8000
 ```
 
-## 주요 화면
+웹캠 기능은 브라우저 권한이 필요합니다. 웹캠 권한 요청이 뜨면 허용해야 촬영 분석을 사용할 수 있습니다.
 
-- `/` : 이미지 업로드 및 예측 결과 화면
-- `/board` : 분류 결과 게시판
-- `/post/{id}` : 게시글 상세 화면
+## 모델 파일 위치
+
+Teachable Machine에서 TensorFlow/Keras 형식으로 내보낸 파일을 아래 위치에 둡니다.
+
+```text
+ai/model/keras_model.h5
+ai/model/labels.txt
+```
+
+현재 서비스는 `keras_model.h5` 파일명을 기준으로 모델을 로딩합니다.  
+라벨 파일은 Teachable Machine 기본 형식인 다음 형태를 지원합니다.
+
+```text
+0 A
+1 B
+2 C
+```
 
 ## API
 
-현재 API는 모델 연동 전 기본 연결 확인용입니다.
+### 이미지 예측
 
-- `POST /api/v1/predict`
-  - 현재는 모델 미연동 상태를 반환합니다.
-  - 추후 실제 Teachable Machine 모델 추론으로 교체해야 합니다.
+```http
+POST /api/v1/predict
+Content-Type: multipart/form-data
+```
 
-- `GET /api/v1/posts`
-  - 게시글 목록을 반환합니다.
+요청 필드:
 
-- `GET /api/v1/posts/{post_id}`
-  - 게시글 상세 정보를 반환합니다.
+- `file`: jpg, jpeg, png 이미지 파일
 
-- `POST /api/v1/posts`
-  - 예측 결과를 게시글로 저장합니다.
+응답 예시:
+
+```json
+{
+  "success": true,
+  "filename": "sample.png",
+  "predicted_class": "A",
+  "confidence": 0.9821,
+  "top_k": [
+    { "label": "A", "score": 0.9821 },
+    { "label": "B", "score": 0.0121 }
+  ],
+  "model": {
+    "name": "keras_model.h5",
+    "version": "v1"
+  },
+  "inference_time_ms": 123
+}
+```
+
+### 게시글 목록
+
+```http
+GET /api/v1/posts
+GET /api/v1/posts?category=A
+```
+
+### 게시글 상세
+
+```http
+GET /api/v1/posts/{post_id}
+```
+
+### 게시글 저장
+
+```http
+POST /api/v1/posts
+Content-Type: application/json
+```
+
+요청 예시:
+
+```json
+{
+  "title": "업로드 이미지 분류 결과",
+  "image_url": "data:image/png;base64,...",
+  "prediction": "A",
+  "confidence": 0.95
+}
+```
+
+### 게시글 제목 수정
+
+```http
+PUT /api/v1/posts/{post_id}
+Content-Type: application/json
+```
+
+요청 예시:
+
+```json
+{
+  "title": "수정한 제목"
+}
+```
 
 ## 프로젝트 구조
 
 ```text
 Deeplearning_Board/
-├── ai/
-│   ├── inference.py
-│   ├── preprocess.py
-│   ├── utils.py
-│   └── model/
-│       ├── labels.txt
-│       └── model.keras
-├── backend/
-│   └── app/
-│       ├── config.py
-│       ├── main.py
-│       ├── models/
-│       │   ├── post.py
-│       │   └── schemas.py
-│       ├── routers/
-│       │   ├── pages.py
-│       │   ├── post.py
-│       │   └── predict.py
-│       └── services/
-│           ├── classifier_service.py
-│           └── post_service.py
-├── data/
-│   ├── samples/
-│   └── uploads/
-├── docs/
-├── frontend/
-│   ├── static/
-│   │   ├── css/
-│   │   │   └── style.css
-│   │   └── js/
-│   │       ├── board.js
-│   │       └── predict.js
-│   └── templates/
-│       ├── board.html
-│       ├── index.html
-│       └── post_detail.html
-├── requirements.txt
-└── README.md
+├─ ai/
+│  └─ model/
+│     ├─ keras_model.h5
+│     └─ labels.txt
+├─ backend/
+│  └─ app/
+│     ├─ main.py
+│     ├─ routers/
+│     │  ├─ pages.py
+│     │  ├─ post.py
+│     │  └─ predict.py
+│     └─ services/
+│        ├─ classifier_service.py
+│        └─ post_service.py
+├─ frontend/
+│  ├─ static/
+│  │  ├─ css/style.css
+│  │  └─ js/
+│  │     ├─ board.js
+│  │     └─ predict.js
+│  └─ templates/
+│     ├─ index.html
+│     ├─ board.html
+│     └─ post_detail.html
+├─ requirements.txt
+└─ README.md
 ```
 
-## 모델 연동 메모
+## 데모 시나리오
 
-현재 `ai/model/labels.txt`와 `ai/model/model.keras`는 비어 있는 상태입니다.
+1. 메인 화면에서 `웹캠 시작`을 누릅니다.
+2. 분류할 손동작 또는 객체를 카메라에 보여줍니다.
+3. `촬영 후 분석`을 눌러 예측 결과를 확인합니다.
+4. Top 5 확률과 최종 예측 클래스를 설명합니다.
+5. `게시글로 저장`을 눌러 결과를 저장합니다.
+6. 게시판에서 저장된 결과 카드를 확인합니다.
+7. 상세 페이지로 이동한 뒤 `수정하기`로 제목을 수정합니다.
 
-Teachable Machine에서 모델을 내보낸 뒤 다음 파일을 교체해야 합니다.
+## 참고 사항
 
-- 모델 파일: `ai/model/model.keras` 또는 `ai/model/model.h5`
-- 라벨 파일: `ai/model/labels.txt`
-
-그 다음 `classifier_service.py`에서 실제 모델을 로딩하고, 업로드 이미지를 전처리한 뒤 예측 결과를 반환하도록 구현합니다.
-
-## 커밋 메모
-
-현재 UI 및 서버 연결 작업 커밋 메시지 예시는 다음과 같습니다.
-
-```bash
-style: enhance UI with glass effects and animations
-```
+- 현재 게시글 데이터는 메모리에 저장되므로 서버를 재시작하면 사라집니다.
+- 웹캠은 브라우저와 실행 환경에 따라 `http://127.0.0.1` 또는 HTTPS 환경에서만 동작할 수 있습니다.
+- Teachable Machine 모델 호환을 위해 `tf-keras`를 사용합니다.
