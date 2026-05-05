@@ -23,6 +23,18 @@ def get_post(post_id: int) -> dict | None:
     return next((post for post in _posts if post["id"] == post_id), None)
 
 
+def update_post(post_id: int, payload: dict) -> dict | None:
+    post = get_post(post_id)
+    if post is None:
+        return None
+
+    title = str(payload.get("title") or "").strip()
+    if title:
+        post["title"] = title
+
+    return post
+
+
 def create_post(payload: dict) -> dict:
     post = {
         "id": max((item["id"] for item in _posts), default=0) + 1,

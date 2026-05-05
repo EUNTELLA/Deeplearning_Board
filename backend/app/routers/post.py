@@ -4,6 +4,7 @@ from backend.app.services.post_service import (
     create_post,
     get_post,
     list_posts,
+    update_post,
 )
 
 
@@ -26,3 +27,11 @@ def read_post(post_id: int):
 @router.post("")
 def add_post(payload: dict):
     return create_post(payload)
+
+
+@router.put("/{post_id}")
+def edit_post(post_id: int, payload: dict):
+    post = update_post(post_id, payload)
+    if post is None:
+        raise HTTPException(status_code=404, detail="Post not found")
+    return post
