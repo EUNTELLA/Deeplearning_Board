@@ -218,10 +218,10 @@ CI는 `main`, `master` 브랜치에 push하거나 pull request를 만들 때 실
 - 백엔드 Python 파일 compile 검사
 - 프론트엔드 JavaScript 문법 검사
 - FastAPI 페이지 및 게시글 API smoke test
-- 모델 파일이 있는 경우 `/api/v1/predict` 추론 smoke test
+- 모델 파일과 라벨 파일 존재 여부 확인
 
-모델 파일이 GitHub 저장소에 없으면 추론 테스트는 자동으로 건너뜁니다.  
-TensorFlow 설치 때문에 CI 실행 시간이 조금 걸릴 수 있습니다.
+CI에서는 속도와 안정성을 위해 TensorFlow 모델 추론까지 실행하지 않습니다.  
+실제 모델 추론은 로컬 데모 환경에서 확인합니다.
 
 ## 참고 사항
 

@@ -1,6 +1,8 @@
 fastapi
 uvicorn[standard]
 python-multipart
+httpx
+jinja2
 tensorflow
 tf-keras
 numpy
