@@ -5,17 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이미지 분류</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=11">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=12">
 </head>
 
 <body>
-    <div id="introOverlay" class="intro-overlay">
-        <div class="intro-content">
-            <button id="introStartBtn" class="intro-start-btn" type="button">시작</button>
-        </div>
-    </div>
-
-    <main id="mainUi" class="main-ui is-hidden">
+    <main>
         <header class="navbar">
             <a class="brand" href="/">
                 <span class="brand-mark">OV</span>
@@ -77,7 +71,7 @@
         </section>
     </main>
 
-    <script src="{{ url_for('static', path='js/predict.js') }}?v=11"></script>
+    <script src="{{ url_for('static', path='js/predict.js') }}?v=12"></script>
 </body>
 
 </html>

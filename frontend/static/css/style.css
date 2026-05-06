@@ -237,10 +237,8 @@ button:active {
 
 .home-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
-    gap: 24px;
-    align-items: stretch;
-    min-height: 460px;
+    align-items: start;
+    min-height: 360px;
 }
 
 .home-hero h1 {
@@ -267,34 +265,6 @@ button:active {
 .secondary-link {
     background: var(--panel);
     color: var(--text);
-}
-
-.home-panel {
-    display: grid;
-    grid-template-columns: 48px 1fr;
-    align-content: center;
-    gap: 14px 16px;
-    padding: 24px;
-    background: var(--panel);
-    border: 3px solid var(--line);
-    border-radius: 8px;
-    box-shadow: var(--shadow);
-}
-
-.home-panel span {
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
-    background: #ffe0e2;
-    color: var(--primary-dark);
-    font-weight: 900;
-}
-
-.home-panel strong {
-    align-self: center;
-    font-size: 18px;
 }
 
 .page-heading {
@@ -766,11 +736,6 @@ button:active {
         flex-direction: column;
         align-items: stretch;
         justify-content: stretch;
-    }
-
-    .home-hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
     }
 
     .select-field,

@@ -5,24 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Object Vision</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=11">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=12">
 </head>
 
 <body>
-    <header class="navbar">
-        <a class="brand" href="/">
-            <span class="brand-mark">OV</span>
-            <span>Object Vision</span>
-        </a>
+    <div id="introOverlay" class="intro-overlay">
+        <div class="intro-content">
+            <button id="introStartBtn" class="intro-start-btn" type="button">시작</button>
+        </div>
+    </div>
 
-        <nav>
-            <a href="/" aria-current="page">홈</a>
-            <a href="/classify">분류</a>
-            <a href="/board">게시판</a>
-        </nav>
-    </header>
+    <main id="mainUi" class="main-ui is-hidden">
+        <header class="navbar">
+            <a class="brand" href="/">
+                <span class="brand-mark">OV</span>
+                <span>Object Vision</span>
+            </a>
 
-    <main>
+            <nav>
+                <a href="/" aria-current="page">홈</a>
+                <a href="/classify">분류</a>
+                <a href="/board">게시판</a>
+            </nav>
+        </header>
+
         <section class="home-hero">
             <div>
                 <p class="eyebrow">Object Vision</p>
@@ -33,16 +39,10 @@
                     <a class="button-link secondary-link" href="/board">게시판 보기</a>
                 </div>
             </div>
-            <div class="home-panel">
-                <span>01</span>
-                <strong>이미지 업로드 또는 웹캠 촬영</strong>
-                <span>02</span>
-                <strong>AI 분류 결과 확인</strong>
-                <span>03</span>
-                <strong>게시판에 저장하고 CRUD 관리</strong>
-            </div>
         </section>
     </main>
+
+    <script src="{{ url_for('static', path='js/home.js') }}?v=12"></script>
 </body>
 
 </html>
