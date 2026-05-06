@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>분류 게시판</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=12">
+    <title>ASL A-I 학습 기록</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=13">
 </head>
 
 <body>
     <header class="navbar">
         <a class="brand" href="/">
-            <span class="brand-mark">OV</span>
-            <span>Object Vision</span>
+            <span class="brand-mark">ASL</span>
+            <span>ASL Letter Board</span>
         </a>
 
         <nav>
@@ -23,15 +23,15 @@
     </header>
 
     <section class="page-heading compact">
-        <p class="eyebrow">Prediction Archive</p>
-        <h1>분류 게시판</h1>
-        <p>저장한 예측 결과를 조회하고 상세 페이지에서 제목 수정과 삭제를 할 수 있습니다.</p>
+        <p class="eyebrow">Learning Archive</p>
+        <h1>ASL A-I 학습 기록</h1>
+        <p>저장된 분류 결과를 알파벳별로 확인하고, 제목 수정과 삭제를 할 수 있습니다.</p>
     </section>
 
     <section class="toolbar">
-        <a class="button-link" href="/classify">새 분류 저장</a>
+        <a class="button-link" href="/classify">새 알파벳 분류</a>
         <label class="select-field">
-            <span>클래스 필터</span>
+            <span>알파벳 필터</span>
             <select id="categoryFilter">
                 <option value="">전체</option>
             </select>
@@ -42,7 +42,7 @@
         <button id="loadMoreBtn" type="button">더 보기</button>
     </section>
 
-    <script src="{{ url_for('static', path='js/board.js') }}?v=12"></script>
+    <script src="{{ url_for('static', path='js/board.js') }}?v=13"></script>
 </body>
 
 </html>

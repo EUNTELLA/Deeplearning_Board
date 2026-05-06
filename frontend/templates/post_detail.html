@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글 상세</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=12">
+    <title>ASL 학습 기록 상세</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=13">
 </head>
 
 <body>
     <header class="navbar">
         <a class="brand" href="/">
-            <span class="brand-mark">OV</span>
-            <span>Object Vision</span>
+            <span class="brand-mark">ASL</span>
+            <span>ASL Letter Board</span>
         </a>
 
         <nav>
@@ -75,7 +75,7 @@
             });
 
             if (!res.ok) {
-                alert("게시글을 삭제하지 못했습니다.");
+                alert("학습 기록을 삭제하지 못했습니다.");
                 return;
             }
 
@@ -87,7 +87,7 @@
             const postDetail = document.getElementById("postDetail");
 
             if (!res.ok) {
-                postDetail.innerHTML = '<div class="empty-state">게시글을 찾을 수 없습니다.</div>';
+                postDetail.innerHTML = '<div class="empty-state">학습 기록을 찾을 수 없습니다.</div>';
                 return;
             }
 
@@ -96,7 +96,7 @@
                 <article class="detail-card card">
                     <img class="detail-image" src="${escapeHtml(post.image_url)}" alt="${escapeHtml(post.title)}">
                     <div class="detail-body">
-                        <p class="eyebrow">Saved Prediction</p>
+                        <p class="eyebrow">Saved ASL Prediction</p>
                         <div class="detail-title-row">
                             <h1 id="postTitle">${escapeHtml(post.title)}</h1>
                             <div class="detail-actions">
@@ -110,7 +110,7 @@
                             <button id="cancelTitleBtn" class="secondary-btn" type="button">취소</button>
                         </div>
                         <div class="result-row">
-                            <span>클래스</span>
+                            <span>예측 알파벳</span>
                             <strong>${escapeHtml(post.prediction)}</strong>
                         </div>
                         <div class="result-row">

@@ -9,7 +9,7 @@ from backend.app.routers import pages, post, predict
 BASE_DIR = Path(__file__).resolve().parents[2]
 FRONTEND_DIR = BASE_DIR / "frontend"
 
-app = FastAPI(title="Object Vision Board")
+app = FastAPI(title="ASL Letter Board")
 
 app.mount(
     "/static",

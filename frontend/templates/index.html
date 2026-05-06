@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Object Vision</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=12">
+    <title>ASL Letter Board</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=13">
 </head>
 
 <body>
@@ -18,8 +18,8 @@
     <main id="mainUi" class="main-ui is-hidden">
         <header class="navbar">
             <a class="brand" href="/">
-                <span class="brand-mark">OV</span>
-                <span>Object Vision</span>
+                <span class="brand-mark">ASL</span>
+                <span>ASL Letter Board</span>
             </a>
 
             <nav>
@@ -31,18 +31,18 @@
 
         <section class="home-hero">
             <div>
-                <p class="eyebrow">Object Vision</p>
-                <h1>이미지 분류 결과를 저장하고 관리하는 게시판</h1>
-                <p>분류 화면에서 이미지를 예측한 뒤 게시글로 저장하고, 게시판에서 목록 조회와 상세 수정, 삭제를 처리할 수 있습니다.</p>
+                <p class="eyebrow">ASL A-I Learning</p>
+                <h1>ASL A-I 수화 알파벳 분류 게시판</h1>
+                <p>웹캠이나 이미지를 통해 ASL 알파벳 A부터 I까지 분류하고, 결과를 게시판에 저장해 학습 기록처럼 관리할 수 있습니다.</p>
                 <div class="home-actions">
                     <a class="button-link" href="/classify">분류 시작</a>
-                    <a class="button-link secondary-link" href="/board">게시판 보기</a>
+                    <a class="button-link secondary-link" href="/board">학습 기록 보기</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <script src="{{ url_for('static', path='js/home.js') }}?v=12"></script>
+    <script src="{{ url_for('static', path='js/home.js') }}?v=13"></script>
 </body>
 
 </html>

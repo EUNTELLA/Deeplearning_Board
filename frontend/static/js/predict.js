@@ -194,11 +194,13 @@ savePostBtn.addEventListener("click", async function () {
         return;
     }
 
+    const title = `ASL ${latestResult.predicted_class} 분류 결과`;
+
     const res = await fetch("/api/v1/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            title: "업로드 이미지 분류 결과",
+            title,
             image_url: preview.src,
             prediction: latestResult.predicted_class,
             confidence: latestResult.confidence,

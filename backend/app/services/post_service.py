@@ -123,7 +123,7 @@ def delete_post(post_id: int) -> bool:
 
 
 def create_post(payload: dict) -> dict:
-    title = str(payload.get("title") or "").strip() or "분류 결과"
+    title = str(payload.get("title") or "").strip() or "ASL 분류 결과"
     image_url = str(payload.get("image_url") or "")
     prediction = str(payload.get("prediction") or payload.get("predicted_class") or "unknown")
     confidence = float(payload.get("confidence") or 0)
