@@ -7,3 +7,4 @@ venv/
 .vscode/
 data/*.db
 data/*.db-*
+ppt_outline.md
