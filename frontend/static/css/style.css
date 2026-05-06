@@ -501,31 +501,29 @@ button:active {
 .toolbar {
     display: flex;
     align-items: end;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: 14px;
     padding: 16px;
     margin-bottom: 22px;
 }
 
-.select-field {
-    display: inline-grid;
-    gap: 6px;
+.alphabet-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.select-field span {
-    color: var(--muted);
-    font-size: 13px;
-    font-weight: 800;
-}
-
-.select-field select {
-    min-width: 180px;
+.tab-chip {
+    min-width: 42px;
     min-height: 42px;
-    padding: 0 12px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
+    padding: 0 14px;
     background: #ffffff;
     color: var(--text);
+}
+
+.tab-chip.is-active {
+    background: var(--primary);
+    color: #ffffff;
 }
 
 .post-grid {
@@ -568,6 +566,20 @@ button:active {
     display: grid;
     gap: 10px;
     padding: 16px;
+}
+
+.post-letter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.post-letter {
+    font-size: 34px;
+    line-height: 1;
+    font-weight: 900;
+    color: var(--primary-dark);
 }
 
 .post-body h3 {
@@ -620,6 +632,32 @@ button:active {
 .post-confidence {
     color: var(--muted);
     font-weight: 800;
+}
+
+.confidence-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 800;
+    border: 2px solid rgba(108, 67, 40, .14);
+}
+
+.confidence-stable {
+    background: #dff4e8;
+    color: #1f6b3e;
+}
+
+.confidence-review {
+    background: #fff1c8;
+    color: #8f6510;
+}
+
+.confidence-retry {
+    background: #ffe0e2;
+    color: #a23c47;
 }
 
 #loadMoreBtn {
@@ -678,6 +716,13 @@ button:active {
 .detail-actions {
     display: flex;
     gap: 8px;
+}
+
+.detail-link-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 .detail-title-editor {
@@ -759,12 +804,12 @@ button:active {
         justify-content: stretch;
     }
 
-    .select-field,
-    .select-field select {
+    .alphabet-tabs {
         width: 100%;
     }
 
-    .toolbar .button-link {
+    .toolbar .button-link,
+    .detail-link-row .button-link {
         width: 100%;
     }
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASL 학습 기록 상세</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=13">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=14">
 </head>
 
 <body>
@@ -37,6 +37,16 @@
                 '"': "&quot;",
                 "'": "&#39;",
             })[char]);
+        }
+
+        function getConfidenceState(confidence) {
+            if (confidence >= 0.9) {
+                return { label: "안정", className: "confidence-stable" };
+            }
+            if (confidence >= 0.7) {
+                return { label: "확인 필요", className: "confidence-review" };
+            }
+            return { label: "다시 보기", className: "confidence-retry" };
         }
 
         async function saveTitle(input, titleView, editPanel, editButton) {
@@ -116,6 +126,14 @@
                         <div class="result-row">
                             <span>신뢰도</span>
                             <strong>${(post.confidence * 100).toFixed(1)}%</strong>
+                        </div>
+                        <div class="result-row">
+                            <span>판단 상태</span>
+                            <strong class="confidence-badge ${getConfidenceState(post.confidence).className}">${getConfidenceState(post.confidence).label}</strong>
+                        </div>
+                        <div class="detail-link-row">
+                            <a class="button-link secondary-link" href="/board?category=${encodeURIComponent(post.prediction)}">같은 알파벳 보기</a>
+                            <a class="button-link" href="/classify">다시 분류하기</a>
                         </div>
                     </div>
                 </article>
