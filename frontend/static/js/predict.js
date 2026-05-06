@@ -17,7 +17,13 @@ let cameraStream = null;
 resultBox.hidden = true;
 
 if (introOverlay && introStartBtn && mainUi) {
+    if (sessionStorage.getItem("objectVisionIntroSeen") === "1") {
+        introOverlay.classList.add("is-done");
+        mainUi.classList.remove("is-hidden");
+    }
+
     introStartBtn.addEventListener("click", function () {
+        sessionStorage.setItem("objectVisionIntroSeen", "1");
         introOverlay.classList.add("is-bursting");
 
         const colors = ["#ff7f85", "#e7636d", "#ffd84d", "#159947", "#6c4328"];
@@ -198,6 +204,13 @@ captureBtn.addEventListener("click", async function () {
             alert("웹캠 이미지를 캡처하지 못했습니다.");
             return;
         }
+
+        const capturedFile = new File([blob], "webcam-capture.jpg", {
+            type: "image/jpeg",
+        });
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(capturedFile);
+        imageInput.files = dataTransfer.files;
 
         await runPrediction(blob, "webcam-capture.jpg");
     }, "image/jpeg", 0.92);

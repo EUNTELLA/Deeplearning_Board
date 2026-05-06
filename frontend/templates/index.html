@@ -5,78 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Object Vision</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=10">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=11">
 </head>
 
 <body>
-    <div id="introOverlay" class="intro-overlay">
-        <div class="intro-content">
-            <button id="introStartBtn" class="intro-start-btn" type="button">시작</button>
-        </div>
-    </div>
+    <header class="navbar">
+        <a class="brand" href="/">
+            <span class="brand-mark">OV</span>
+            <span>Object Vision</span>
+        </a>
 
-    <main id="mainUi" class="main-ui is-hidden">
-        <header class="navbar">
-            <a class="brand" href="/">
-                <span class="brand-mark">OV</span>
-                <span>Object Vision</span>
-            </a>
+        <nav>
+            <a href="/" aria-current="page">홈</a>
+            <a href="/classify">분류</a>
+            <a href="/board">게시판</a>
+        </nav>
+    </header>
 
-            <nav>
-                <a href="/">분류</a>
-                <a href="/board">게시판</a>
-            </nav>
-        </header>
-
-        <section class="page-heading">
-            <p class="eyebrow">Image Classification</p>
-            <h1>이미지를 업로드하고 AI 예측 결과를 확인하세요</h1>
-            <p>Teachable Machine 모델로 이미지를 분류하고 결과를 게시판에 저장할 수 있습니다.</p>
-        </section>
-
-        <section class="predict-layout">
-            <section class="upload-box card">
-                <div class="section-title">
-                    <h2>이미지 업로드</h2>
-                    <span>JPG, PNG · 최대 10MB</span>
+    <main>
+        <section class="home-hero">
+            <div>
+                <p class="eyebrow">Object Vision</p>
+                <h1>이미지 분류 결과를 저장하고 관리하는 게시판</h1>
+                <p>분류 화면에서 이미지를 예측한 뒤 게시글로 저장하고, 게시판에서 목록 조회와 상세 수정, 삭제를 처리할 수 있습니다.</p>
+                <div class="home-actions">
+                    <a class="button-link" href="/classify">분류 시작</a>
+                    <a class="button-link secondary-link" href="/board">게시판 보기</a>
                 </div>
-
-                <form id="predictForm">
-                    <label class="upload-area">
-                        <input type="file" id="imageInput" accept="image/*">
-                        <video id="cameraPreview" autoplay playsinline muted hidden></video>
-                        <img id="preview" alt="">
-                        <span id="uploadHint">이미지 선택 또는 드래그</span>
-                    </label>
-
-                    <div class="webcam-controls">
-                        <button id="startCameraBtn" class="secondary-btn" type="button">웹캠 시작</button>
-                        <button id="captureBtn" type="button" hidden>촬영 후 분석</button>
-                    </div>
-
-                    <button type="submit">분류 시작</button>
-                </form>
-            </section>
-
-            <section id="resultBox" class="card result-card">
-                <div class="section-title">
-                    <h2>예측 결과</h2>
-                    <span>Top 5</span>
-                </div>
-
-                <div class="result-summary">
-                    <span id="predictedClass"></span>
-                    <strong id="confidence"></strong>
-                </div>
-
-                <ul id="topK" class="score-list"></ul>
-
-                <button id="savePostBtn" type="button">게시글로 저장</button>
-            </section>
+            </div>
+            <div class="home-panel">
+                <span>01</span>
+                <strong>이미지 업로드 또는 웹캠 촬영</strong>
+                <span>02</span>
+                <strong>AI 분류 결과 확인</strong>
+                <span>03</span>
+                <strong>게시판에 저장하고 CRUD 관리</strong>
+            </div>
         </section>
     </main>
-
-    <script src="{{ url_for('static', path='js/predict.js') }}?v=10"></script>
 </body>
 
 </html>

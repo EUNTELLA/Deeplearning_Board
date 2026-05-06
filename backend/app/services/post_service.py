@@ -111,6 +111,17 @@ def update_post(post_id: int, payload: dict) -> dict | None:
     return get_post(post_id)
 
 
+def delete_post(post_id: int) -> bool:
+    with _connect() as connection:
+        cursor = connection.execute(
+            "DELETE FROM posts WHERE id = ?",
+            (post_id,),
+        )
+        connection.commit()
+
+    return cursor.rowcount > 0
+
+
 def create_post(payload: dict) -> dict:
     title = str(payload.get("title") or "").strip() or "분류 결과"
     image_url = str(payload.get("image_url") or "")

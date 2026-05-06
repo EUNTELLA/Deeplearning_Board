@@ -19,7 +19,7 @@ function escapeHtml(value) {
 function showEmptyMessage() {
     const emptyMessage = document.createElement("p");
     emptyMessage.className = "empty-state";
-    emptyMessage.innerText = "아직 저장된 분류 결과가 없습니다.";
+    emptyMessage.innerText = "아직 저장된 분류 결과가 없습니다. 분류 화면에서 결과를 저장해 주세요.";
     postList.insertBefore(emptyMessage, loadMoreBtn);
 }
 

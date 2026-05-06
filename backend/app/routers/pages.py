@@ -15,9 +15,19 @@ def home(request: Request):
     return templates.TemplateResponse(request, "index.html")
 
 
+@router.get("/classify")
+def classify(request: Request):
+    return templates.TemplateResponse(request, "classify.html")
+
+
 @router.get("/board")
 def board(request: Request):
     return templates.TemplateResponse(request, "board.html")
+
+
+@router.get("/webcam-test")
+def webcam_test(request: Request):
+    return templates.TemplateResponse(request, "webcam_test.html")
 
 
 @router.get("/post/{post_id}")

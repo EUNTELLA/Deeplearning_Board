@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 상세</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=10">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=11">
 </head>
 
 <body>
@@ -16,8 +16,9 @@
         </a>
 
         <nav>
-            <a href="/">분류</a>
-            <a href="/board">게시판</a>
+            <a href="/">홈</a>
+            <a href="/classify">분류</a>
+            <a href="/board" aria-current="page">게시판</a>
         </nav>
     </header>
 
@@ -64,6 +65,23 @@
             editButton.hidden = false;
         }
 
+        async function deletePost() {
+            if (!confirm("게시글을 삭제할까요?")) {
+                return;
+            }
+
+            const res = await fetch(`/api/v1/posts/${postId}`, {
+                method: "DELETE",
+            });
+
+            if (!res.ok) {
+                alert("게시글을 삭제하지 못했습니다.");
+                return;
+            }
+
+            location.href = "/board";
+        }
+
         async function loadPost() {
             const res = await fetch(`/api/v1/posts/${postId}`);
             const postDetail = document.getElementById("postDetail");
@@ -81,7 +99,10 @@
                         <p class="eyebrow">Saved Prediction</p>
                         <div class="detail-title-row">
                             <h1 id="postTitle">${escapeHtml(post.title)}</h1>
-                            <button id="editTitleBtn" class="secondary-btn" type="button">수정하기</button>
+                            <div class="detail-actions">
+                                <button id="editTitleBtn" class="secondary-btn" type="button">수정</button>
+                                <button id="deletePostBtn" class="danger-btn" type="button">삭제</button>
+                            </div>
                         </div>
                         <div id="titleEditPanel" class="detail-title-editor" hidden>
                             <input id="titleInput" class="title-input" value="${escapeHtml(post.title)}" aria-label="게시글 제목">
@@ -104,6 +125,7 @@
             const editPanel = document.getElementById("titleEditPanel");
             const input = document.getElementById("titleInput");
             const titleView = document.getElementById("postTitle");
+            const deleteButton = document.getElementById("deletePostBtn");
 
             editButton.addEventListener("click", () => {
                 editPanel.hidden = false;
@@ -121,6 +143,8 @@
             document.getElementById("saveTitleBtn").addEventListener("click", () => {
                 saveTitle(input, titleView, editPanel, editButton);
             });
+
+            deleteButton.addEventListener("click", deletePost);
 
             input.addEventListener("keydown", (event) => {
                 if (event.key === "Enter") {

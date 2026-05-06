@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam Test</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #f5f6f8;
+            color: #1f2933;
+            display: grid;
+            place-items: center;
+        }
+
+        main {
+            width: min(920px, calc(100% - 32px));
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        select {
+            min-width: 240px;
+            border: 1px solid #cfd7e3;
+            border-radius: 6px;
+            padding: 10px 12px;
+            background: white;
+            color: #1f2933;
+        }
+
+        button {
+            border: 0;
+            border-radius: 6px;
+            padding: 11px 16px;
+            background: #1f7a4d;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button.secondary {
+            background: #4b5563;
+        }
+
+        video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #111827;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        pre {
+            min-height: 88px;
+            margin: 14px 0 0;
+            padding: 14px;
+            background: white;
+            border: 1px solid #d8dee8;
+            border-radius: 8px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="toolbar">
+            <select id="cameraSelect"></select>
+            <button id="startBtn" type="button">웹캠 테스트</button>
+            <button id="safeStartBtn" class="secondary" type="button">저해상도 테스트</button>
+            <button id="stopBtn" class="secondary" type="button">중지</button>
+        </div>
+        <video id="preview" autoplay playsinline muted></video>
+        <pre id="status">대기 중</pre>
+    </main>
+
+    <script>
+        const startBtn = document.getElementById("startBtn");
+        const safeStartBtn = document.getElementById("safeStartBtn");
+        const stopBtn = document.getElementById("stopBtn");
+        const cameraSelect = document.getElementById("cameraSelect");
+        const preview = document.getElementById("preview");
+        const statusBox = document.getElementById("status");
+        let stream = null;
+
+        function log(message) {
+            statusBox.textContent = message;
+        }
+
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach((track) => track.stop());
+                stream = null;
+            }
+            preview.srcObject = null;
+            log("중지됨");
+        }
+
+        async function loadCameras() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+                cameraSelect.innerHTML = "<option>장치 목록 사용 불가</option>";
+                return [];
+            }
+
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const cameras = devices.filter((device) => device.kind === "videoinput");
+            cameraSelect.innerHTML = "";
+
+            if (!cameras.length) {
+                cameraSelect.innerHTML = "<option>카메라 없음</option>";
+                return cameras;
+            }
+
+            cameras.forEach((camera, index) => {
+                const option = document.createElement("option");
+                option.value = camera.deviceId;
+                option.textContent = camera.label || `카메라 ${index + 1}`;
+                cameraSelect.appendChild(option);
+            });
+
+            return cameras;
+        }
+
+        async function startCamera(mode) {
+            stopCamera();
+
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                log("실패: 이 브라우저에서 getUserMedia를 지원하지 않습니다.");
+                return;
+            }
+
+            try {
+                const cameras = await loadCameras();
+                const selectedDeviceId = cameraSelect.value;
+                const useSafeMode = mode === "safe";
+                const video = {
+                    width: useSafeMode ? { ideal: 640 } : { ideal: 1280 },
+                    height: useSafeMode ? { ideal: 480 } : { ideal: 720 },
+                };
+
+                if (selectedDeviceId) {
+                    video.deviceId = { exact: selectedDeviceId };
+                }
+
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video,
+                    audio: false,
+                });
+
+                preview.srcObject = stream;
+                const track = stream.getVideoTracks()[0];
+                log([
+                    "성공: 웹캠 스트림이 열렸습니다.",
+                    `카메라 개수: ${cameras.length}`,
+                    `사용 중: ${track.label || "이름 확인 불가"}`,
+                    `해상도: ${track.getSettings().width || "?"} x ${track.getSettings().height || "?"}`,
+                ].join("\n"));
+                await loadCameras();
+            } catch (error) {
+                log([
+                    "실패: 웹캠을 열 수 없습니다.",
+                    `이름: ${error.name}`,
+                    `메시지: ${error.message}`,
+                    "",
+                    "확인:",
+                    "1. Windows 카메라 앱, Zoom, Teams, OBS, 다른 브라우저 탭을 모두 종료",
+                    "2. USB 웹캠이면 뺐다가 다시 연결",
+                    "3. 저해상도 테스트 버튼으로 다시 시도",
+                ].join("\n"));
+            }
+        }
+
+        startBtn.addEventListener("click", () => startCamera("normal"));
+        safeStartBtn.addEventListener("click", () => startCamera("safe"));
+        stopBtn.addEventListener("click", stopCamera);
+        window.addEventListener("beforeunload", stopCamera);
+        loadCameras().catch((error) => {
+            log(`장치 목록을 불러오지 못했습니다: ${error.message}`);
+        });
+    </script>
+</body>
+
+</html>

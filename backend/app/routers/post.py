@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 
 from backend.app.services.post_service import (
     create_post,
+    delete_post,
     get_post,
     list_posts,
     update_post,
@@ -35,3 +36,10 @@ def edit_post(post_id: int, payload: dict):
     if post is None:
         raise HTTPException(status_code=404, detail="Post not found")
     return post
+
+
+@router.delete("/{post_id}")
+def remove_post(post_id: int):
+    if not delete_post(post_id):
+        raise HTTPException(status_code=404, detail="Post not found")
+    return {"deleted": True}
