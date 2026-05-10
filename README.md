@@ -3,6 +3,8 @@
 Teachable Machine으로 학습한 ASL 알파벳 이미지 분류 모델을 FastAPI 웹 서비스에 연결한 프로젝트입니다.
 이미지 업로드 또는 웹캠 촬영으로 A-Z 알파벳을 예측하고, 결과를 게시판에 저장해 학습 기록처럼 관리할 수 있습니다.
 
+![Teachable Machine 학습 화면](docs/image/teachable_machine_page.png)
+
 ## 주요 기능
 
 - Teachable Machine Keras 모델(`keras_model.h5`) 기반 ASL 알파벳 A-Z 분류
@@ -17,13 +19,19 @@ Teachable Machine으로 학습한 ASL 알파벳 이미지 분류 모델을 FastA
 
 ## 화면 구성
 
-UI 스크린샷은 추후 업로드 예정입니다.
+![시작 화면](docs/image/start.png)
+![홈 화면](docs/image/home.png)
+![분류 화면](docs/image/classification.png)
+![단어 학습 화면](docs/image/words.png)
+![게시판 화면](docs/image/board.png)
 
 ```text
 docs/image/
 ├─ start.png
 ├─ home.png
 ├─ classification.png
+├─ words.png
+├─ teachable_machine_page.png
 └─ board.png
 ```
 
@@ -256,17 +264,6 @@ Deeplearning_Board/
 ├─ requirements.txt
 └─ README.md
 ```
-
-## 데모 흐름
-
-1. 홈 화면에서 `분류 시작`을 누릅니다.
-2. 이미지 파일을 업로드하거나 웹캠을 켭니다.
-3. `촬영 후 분석` 또는 업로드 제출로 예측을 실행합니다.
-4. 예측 알파벳, 신뢰도, Top 5 결과를 확인합니다.
-5. `학습 기록으로 저장`을 눌러 게시판에 저장합니다.
-6. 게시판에서 알파벳별 필터로 기록을 확인합니다.
-7. 상세 화면에서 제목 수정 또는 삭제를 진행합니다.
-8. 메뉴의 `단어 학습`에서 LOVE 단어 이미지를 확인합니다.
 
 ## 배포
 
