@@ -284,15 +284,11 @@ Deeplearning_Board/
 
 ## 배포
 
-이 프로젝트는 FastAPI, TensorFlow, SQLite를 사용하는 서버형 앱입니다. 정적 파일만 제공하는 GitHub Pages에는 그대로 배포할 수 없습니다.
+이 프로젝트는 Hugging Face Spaces의 Docker 환경에 배포했습니다.
 
-무료 배포는 Hugging Face Spaces의 Docker Space를 사용할 수 있습니다.
+https://huggingface.co/spaces/eunzzang/Deeplearning_Board
 
-1. Hugging Face에서 새 Space를 만듭니다.
-2. SDK는 `Docker`를 선택합니다.
-3. 저장소 파일을 Space에 push합니다.
-4. Space가 `Dockerfile`을 사용해 앱을 빌드합니다.
-5. 앱은 기본 포트 `7860`에서 실행됩니다.
+GitHub Actions는 push 시 기본 검증을 자동으로 수행하기 위해 사용했습니다. 현재는 배포 자동화보다는 CI 확인 용도이며, 추후 GitHub 저장소와 Hugging Face Spaces 배포를 자동 연동할 때 확장할 수 있습니다.
 
 주의:
 
