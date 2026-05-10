@@ -1,11 +1,3 @@
----
-title: Deeplearning Board
-colorFrom: pink
-colorTo: red
-sdk: docker
-app_port: 7860
----
-
 # ASL Letter Board
 
 Teachable Machine으로 학습한 ASL 알파벳 이미지 분류 모델을 FastAPI 웹 서비스에 연결한 프로젝트입니다.
