@@ -25,6 +25,11 @@ def board(request: Request):
     return templates.TemplateResponse(request, "board.html")
 
 
+@router.get("/post/{post_id}")
+def post_detail(request: Request, post_id: int):
+    return templates.TemplateResponse(request, "post_detail.html", {"post_id": post_id})
+
+
 @router.get("/webcam-test")
 def webcam_test(request: Request):
     return templates.TemplateResponse(request, "webcam_test.html")

@@ -207,6 +207,11 @@ savePostBtn.addEventListener("click", async function () {
         }),
     });
 
+    if (!res.ok) {
+        alert("학습 기록을 저장하지 못했습니다.");
+        return;
+    }
+
     const post = await res.json();
     location.href = `/post/${post.id}`;
 });
