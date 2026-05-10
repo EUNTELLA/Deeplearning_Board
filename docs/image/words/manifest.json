@@ -1,0 +1,128 @@
+﻿[
+    {
+        "word":  "LOVE",
+        "position":  1,
+        "letter":  "L",
+        "status":  "ok",
+        "files":  [
+                      "LOVE/01_L/L_01.jpg",
+                      "LOVE/01_L/L_02.jpg",
+                      "LOVE/01_L/L_03.jpg",
+                      "LOVE/01_L/L_04.jpg",
+                      "LOVE/01_L/L_05.jpg",
+                      "LOVE/01_L/L_06.jpg"
+                  ]
+    },
+    {
+        "word":  "LOVE",
+        "position":  2,
+        "letter":  "O",
+        "status":  "ok",
+        "files":  [
+                      "LOVE/02_O/O_01.jpg",
+                      "LOVE/02_O/O_02.jpg",
+                      "LOVE/02_O/O_03.jpg",
+                      "LOVE/02_O/O_04.jpg",
+                      "LOVE/02_O/O_05.jpg",
+                      "LOVE/02_O/O_06.jpg"
+                  ]
+    },
+    {
+        "word":  "LOVE",
+        "position":  3,
+        "letter":  "V",
+        "status":  "ok",
+        "files":  [
+                      "LOVE/03_V/V_01.jpg",
+                      "LOVE/03_V/V_02.jpg",
+                      "LOVE/03_V/V_03.jpg",
+                      "LOVE/03_V/V_04.jpg",
+                      "LOVE/03_V/V_05.jpg",
+                      "LOVE/03_V/V_06.jpg"
+                  ]
+    },
+    {
+        "word":  "LOVE",
+        "position":  4,
+        "letter":  "E",
+        "status":  "ok",
+        "files":  [
+                      "LOVE/04_E/E_01.jpg",
+                      "LOVE/04_E/E_02.jpg",
+                      "LOVE/04_E/E_03.jpg",
+                      "LOVE/04_E/E_04.jpg",
+                      "LOVE/04_E/E_05.jpg",
+                      "LOVE/04_E/E_06.jpg"
+                  ]
+    },
+    {
+        "word":  "APPLE",
+        "position":  1,
+        "letter":  "A",
+        "status":  "ok",
+        "files":  [
+                      "APPLE/01_A/A_01.jpg",
+                      "APPLE/01_A/A_02.jpg",
+                      "APPLE/01_A/A_03.jpg",
+                      "APPLE/01_A/A_04.jpg",
+                      "APPLE/01_A/A_05.jpg",
+                      "APPLE/01_A/A_06.jpg"
+                  ]
+    },
+    {
+        "word":  "APPLE",
+        "position":  2,
+        "letter":  "P",
+        "status":  "ok",
+        "files":  [
+                      "APPLE/02_P/P_01.jpg",
+                      "APPLE/02_P/P_02.jpg",
+                      "APPLE/02_P/P_03.jpg",
+                      "APPLE/02_P/P_04.jpg",
+                      "APPLE/02_P/P_05.jpg",
+                      "APPLE/02_P/P_06.jpg"
+                  ]
+    },
+    {
+        "word":  "APPLE",
+        "position":  3,
+        "letter":  "P",
+        "status":  "ok",
+        "files":  [
+                      "APPLE/03_P/P_01.jpg",
+                      "APPLE/03_P/P_02.jpg",
+                      "APPLE/03_P/P_03.jpg",
+                      "APPLE/03_P/P_04.jpg",
+                      "APPLE/03_P/P_05.jpg",
+                      "APPLE/03_P/P_06.jpg"
+                  ]
+    },
+    {
+        "word":  "APPLE",
+        "position":  4,
+        "letter":  "L",
+        "status":  "ok",
+        "files":  [
+                      "APPLE/04_L/L_01.jpg",
+                      "APPLE/04_L/L_02.jpg",
+                      "APPLE/04_L/L_03.jpg",
+                      "APPLE/04_L/L_04.jpg",
+                      "APPLE/04_L/L_05.jpg",
+                      "APPLE/04_L/L_06.jpg"
+                  ]
+    },
+    {
+        "word":  "APPLE",
+        "position":  5,
+        "letter":  "E",
+        "status":  "ok",
+        "files":  [
+                      "APPLE/05_E/E_01.jpg",
+                      "APPLE/05_E/E_02.jpg",
+                      "APPLE/05_E/E_03.jpg",
+                      "APPLE/05_E/E_04.jpg",
+                      "APPLE/05_E/E_05.jpg",
+                      "APPLE/05_E/E_06.jpg"
+                  ]
+    }
+]

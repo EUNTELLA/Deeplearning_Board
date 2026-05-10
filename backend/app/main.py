@@ -16,6 +16,11 @@ app.mount(
     StaticFiles(directory=FRONTEND_DIR / "static"),
     name="static",
 )
+app.mount(
+    "/word-images",
+    StaticFiles(directory=BASE_DIR / "docs" / "image" / "words"),
+    name="word_images",
+)
 
 app.include_router(pages.router)
 app.include_router(post.router, prefix="/api/v1")
