@@ -89,6 +89,10 @@ def _get_labels() -> list[str]:
     return _labels
 
 
+def get_labels() -> list[str]:
+    return _get_labels()
+
+
 def _model_input_size(model) -> tuple[int, int]:
     input_shape = model.input_shape
     if isinstance(input_shape, list):
