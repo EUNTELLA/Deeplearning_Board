@@ -660,6 +660,73 @@ button:active {
     color: #a23c47;
 }
 
+.love-letters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+    margin-bottom: 26px;
+}
+
+.letter {
+    display: grid;
+    gap: 10px;
+    padding: 18px;
+    background: var(--panel);
+    border: 3px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 4px 5px 0 rgba(108, 67, 40, .9);
+}
+
+.letter h3 {
+    color: var(--primary-dark);
+    font-size: 34px;
+    line-height: 1;
+}
+
+.letter img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background: var(--panel-soft);
+    border: 2px solid rgba(108, 67, 40, .22);
+    border-radius: 8px;
+}
+
+.letter p,
+.practice p,
+footer p {
+    color: var(--muted);
+}
+
+.practice {
+    display: grid;
+    gap: 14px;
+    padding: 22px;
+    background: var(--panel);
+    border: 3px solid var(--line);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.practice video,
+.practice canvas {
+    width: 100%;
+    max-width: 640px;
+    aspect-ratio: 4 / 3;
+    border-radius: 8px;
+    background: var(--panel-soft);
+    border: 2px solid rgba(108, 67, 40, .22);
+}
+
+.practice canvas {
+    display: none;
+}
+
+footer {
+    margin-top: 28px;
+    text-align: center;
+}
+
 #loadMoreBtn {
     grid-column: 1 / -1;
     justify-self: center;

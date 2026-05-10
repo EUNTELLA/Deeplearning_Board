@@ -5,6 +5,7 @@ const loadMoreBtn = document.getElementById("loadMoreBtn");
 let skip = 0;
 const limit = 6;
 let currentCategory = "";
+const fallbackLabels = Array.from({ length: 26 }, (_, index) => String.fromCharCode(65 + index));
 
 function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, (char) => ({
@@ -19,7 +20,7 @@ function escapeHtml(value) {
 function showEmptyMessage() {
     const emptyMessage = document.createElement("p");
     emptyMessage.className = "empty-state";
-    emptyMessage.innerText = "아직 저장된 ASL 학습 기록이 없습니다. 분류 화면에서 A-I 결과를 저장해 주세요.";
+    emptyMessage.innerText = "아직 저장된 ASL 학습 기록이 없습니다. 분류 화면에서 A-Z 결과를 저장해 주세요.";
     postList.insertBefore(emptyMessage, loadMoreBtn);
 }
 
@@ -41,6 +42,45 @@ function setActiveTab(category) {
     alphabetTabs.querySelectorAll(".tab-chip").forEach((button) => {
         button.classList.toggle("is-active", button.dataset.category === category);
     });
+}
+
+function renderAlphabetTabs(labels) {
+    if (!alphabetTabs) {
+        return;
+    }
+
+    const allTab = alphabetTabs.querySelector('[data-category=""]');
+    alphabetTabs.innerHTML = "";
+    alphabetTabs.appendChild(allTab || createTab("", "전체"));
+
+    labels.forEach((label) => {
+        alphabetTabs.appendChild(createTab(label, label));
+    });
+
+    setActiveTab(currentCategory);
+}
+
+function createTab(category, label) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "tab-chip";
+    button.dataset.category = category;
+    button.innerText = label;
+    return button;
+}
+
+async function loadLabels() {
+    try {
+        const res = await fetch("/api/v1/predict/labels");
+        if (!res.ok) {
+            throw new Error("labels request failed");
+        }
+
+        const data = await res.json();
+        return Array.isArray(data.classes) && data.classes.length ? data.classes : fallbackLabels;
+    } catch (error) {
+        return fallbackLabels;
+    }
 }
 
 async function loadPosts({ reset = false } = {}) {
@@ -106,7 +146,11 @@ if (alphabetTabs) {
 
 loadMoreBtn.addEventListener("click", () => loadPosts());
 
-const params = new URLSearchParams(window.location.search);
-currentCategory = params.get("category") || "";
-setActiveTab(currentCategory);
-loadPosts({ reset: true });
+async function initBoard() {
+    const params = new URLSearchParams(window.location.search);
+    currentCategory = params.get("category") || "";
+    renderAlphabetTabs(await loadLabels());
+    loadPosts({ reset: true });
+}
+
+initBoard();

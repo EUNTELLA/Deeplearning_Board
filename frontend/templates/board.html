@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASL A-I 학습 기록</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=14">
+    <title>ASL A-Z 학습 기록</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=15">
 </head>
 
 <body>
@@ -18,29 +18,21 @@
         <nav>
             <a href="/">홈</a>
             <a href="/classify">분류</a>
+            <a href="/love-learning">단어 학습</a>
             <a href="/board" aria-current="page">게시판</a>
         </nav>
     </header>
 
     <section class="page-heading compact">
         <p class="eyebrow">Learning Archive</p>
-        <h1>ASL A-I 학습 기록</h1>
-        <p>저장된 구분 결과를 A-I 알파벳별로 확인하고, 제목 수정과 삭제를 할 수 있습니다.</p>
+        <h1>ASL A-Z 학습 기록</h1>
+        <p>저장된 구분 결과를 A-Z 알파벳별로 확인하고, 제목 수정과 삭제를 할 수 있습니다.</p>
     </section>
 
     <section class="toolbar">
         <a class="button-link" href="/classify">새 알파벳 분류</a>
         <div id="alphabetTabs" class="alphabet-tabs" aria-label="알파벳 필터">
             <button type="button" class="tab-chip is-active" data-category="">전체</button>
-            <button type="button" class="tab-chip" data-category="A">A</button>
-            <button type="button" class="tab-chip" data-category="B">B</button>
-            <button type="button" class="tab-chip" data-category="C">C</button>
-            <button type="button" class="tab-chip" data-category="D">D</button>
-            <button type="button" class="tab-chip" data-category="E">E</button>
-            <button type="button" class="tab-chip" data-category="F">F</button>
-            <button type="button" class="tab-chip" data-category="G">G</button>
-            <button type="button" class="tab-chip" data-category="H">H</button>
-            <button type="button" class="tab-chip" data-category="I">I</button>
         </div>
     </section>
 
@@ -48,7 +40,7 @@
         <button id="loadMoreBtn" type="button">더 보기</button>
     </section>
 
-    <script src="{{ url_for('static', path='js/board.js') }}?v=14"></script>
+    <script src="{{ url_for('static', path='js/board.js') }}?v=15"></script>
 </body>
 
 </html>

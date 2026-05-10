@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOVE 학습 페이지</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=15">
+</head>
+<body>
+    <header class="navbar">
+        <a class="brand" href="/">
+            <span class="brand-mark">ASL</span>
+            <span>ASL Letter Board</span>
+        </a>
+
+        <nav>
+            <a href="/">홈</a>
+            <a href="/classify">분류</a>
+            <a href="/love-learning" aria-current="page">단어 학습</a>
+            <a href="/board">게시판</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-heading">
+            <p class="eyebrow">Word Learning</p>
+            <h1>LOVE 표현 학습</h1>
+            <p>다음은 LOVE를 표현하는 ASL 알파벳 사진들입니다. 각 글자를 학습해보세요!</p>
+        </section>
+
+        <section>
+            <div class="love-letters">
+                <div class="letter">
+                    <h3>L</h3>
+                    <img src="/static/images/L_sample.jpg" alt="L 손 모양" onerror="this.src='/static/images/placeholder.jpg'">
+                    <p>L의 ASL 표현 설명</p>
+                </div>
+                <div class="letter">
+                    <h3>O</h3>
+                    <img src="/static/images/O_sample.jpg" alt="O 손 모양" onerror="this.src='/static/images/placeholder.jpg'">
+                    <p>O의 ASL 표현 설명</p>
+                </div>
+                <div class="letter">
+                    <h3>V</h3>
+                    <img src="/static/images/V_sample.jpg" alt="V 손 모양" onerror="this.src='/static/images/placeholder.jpg'">
+                    <p>V의 ASL 표현 설명</p>
+                </div>
+                <div class="letter">
+                    <h3>E</h3>
+                    <img src="/static/images/E_sample.jpg" alt="E 손 모양" onerror="this.src='/static/images/placeholder.jpg'">
+                    <p>E의 ASL 표현 설명</p>
+                </div>
+            </div>
+
+            <div class="practice">
+                <h3>연습하기</h3>
+                <p>웹캠을 사용하여 LOVE를 표현해보세요!</p>
+                <button onclick="startPractice()">연습 시작</button>
+                <video id="video" width="640" height="480" autoplay></video>
+                <canvas id="canvas" width="640" height="480"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 ASL Learning Board</p>
+    </footer>
+
+    <script src="{{ url_for('static', path='js/love_learning.js') }}?v=1"></script>
+</body>
+</html>
