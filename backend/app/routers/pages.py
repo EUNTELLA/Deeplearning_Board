@@ -30,10 +30,6 @@ def webcam_test(request: Request):
     return templates.TemplateResponse(request, "webcam_test.html")
 
 
-@router.get("/post/{post_id}")
-def post_detail(request: Request, post_id: int):
-    return templates.TemplateResponse(
-        request,
-        "post_detail.html",
-        {"post_id": post_id},
-    )
+@router.get("/love-learning")
+def love_learning(request: Request):
+    return templates.TemplateResponse(request, "love_learning.html")
