@@ -1,40 +1,24 @@
 from pathlib import Path
 
-from fastapi import APIRouter, Request
-from fastapi.templating import Jinja2Templates
+from fastapi import APIRouter, HTTPException
+from fastapi.responses import FileResponse
 
 
 BASE_DIR = Path(__file__).resolve().parents[3]
-templates = Jinja2Templates(directory=BASE_DIR / "frontend" / "templates")
+SPA_INDEX = BASE_DIR / "frontend" / "dist" / "index.html"
 
 router = APIRouter()
 
 
-@router.get("/")
-def home(request: Request):
-    return templates.TemplateResponse(request, "index.html")
+@router.get("/{full_path:path}", include_in_schema=False)
+def serve_spa(full_path: str):
+    if full_path.startswith(("api/", "static/", "word-images/", "assets/")):
+        raise HTTPException(status_code=404)
 
+    if not SPA_INDEX.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="React build not found. Run `npm install && npm run build` in frontend.",
+        )
 
-@router.get("/classify")
-def classify(request: Request):
-    return templates.TemplateResponse(request, "classify.html")
-
-
-@router.get("/board")
-def board(request: Request):
-    return templates.TemplateResponse(request, "board.html")
-
-
-@router.get("/post/{post_id}")
-def post_detail(request: Request, post_id: int):
-    return templates.TemplateResponse(request, "post_detail.html", {"post_id": post_id})
-
-
-@router.get("/webcam-test")
-def webcam_test(request: Request):
-    return templates.TemplateResponse(request, "webcam_test.html")
-
-
-@router.get("/love-learning")
-def love_learning(request: Request):
-    return templates.TemplateResponse(request, "love_learning.html")
+    return FileResponse(SPA_INDEX)

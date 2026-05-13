@@ -8,3 +8,5 @@ venv/
 data/*.db
 data/*.db-*
 ppt_outline.md
+frontend/node_modules/
+frontend/dist/
