@@ -1,6 +1,6 @@
 # ASL Letter Board
 
-Teachable Machine으로 학습한 ASL 알파벳 이미지 분류 모델을 FastAPI 웹 서비스에 연결한 프로젝트입니다.
+Teachable Machine으로 학습한 ASL 알파벳 이미지 분류 모델을 FastAPI API와 React 화면에 연결한 프로젝트입니다.
 이미지 업로드 또는 웹캠 촬영으로 A-Z 알파벳을 예측하고, 결과를 게시판에 저장해 학습 기록처럼 관리할 수 있습니다.
 
 ![Teachable Machine 학습 화면](docs/image/teachable_machine_page.png)
@@ -61,7 +61,18 @@ Python 패키지를 설치합니다.
 pip install -r requirements.txt
 ```
 
-FastAPI 서버를 실행합니다.
+FastAPI 서버를 실행합니다. React 화면은 `frontend/dist` 빌드 결과물을 FastAPI가 함께 제공합니다.
+
+React 화면을 먼저 빌드합니다.
+
+```bash
+cd frontend
+npm install
+npm run build
+cd ..
+```
+
+그 다음 FastAPI 서버를 실행합니다.
 
 ```bash
 python -m uvicorn backend.app.main:app --reload
@@ -74,6 +85,13 @@ http://127.0.0.1:8000
 ```
 
 웹캠 기능은 브라우저 권한이 필요합니다. 권한 요청이 뜨면 허용해야 촬영 분석을 사용할 수 있습니다.
+
+개발 중 React dev server를 따로 실행하려면 아래 명령을 사용합니다. Vite proxy가 `/api`, `/word-images`, `/static` 요청을 FastAPI로 전달합니다.
+
+```bash
+cd frontend
+npm run dev
+```
 
 ## 모델 파일
 
@@ -254,21 +272,17 @@ Deeplearning_Board/
 │        ├─ APPLE/
 │        └─ manifest.json
 ├─ frontend/
+│  ├─ src/
+│  │  ├─ api/client.js
+│  │  ├─ main.jsx
+│  │  └─ style.css
 │  ├─ static/
 │  │  ├─ css/style.css
-│  │  ├─ images/placeholder.jpg
-│  │  └─ js/
-│  │     ├─ board.js
-│  │     ├─ home.js
-│  │     ├─ love_learning.js
-│  │     └─ predict.js
-│  └─ templates/
-│     ├─ index.html
-│     ├─ classify.html
-│     ├─ board.html
-│     ├─ post_detail.html
-│     ├─ love_learning.html
-│     └─ webcam_test.html
+│  │  └─ images/placeholder.jpg
+│  ├─ index.html
+│  ├─ package.json
+│  ├─ package-lock.json
+│  └─ vite.config.js
 ├─ Dockerfile
 ├─ requirements.txt
 └─ README.md
@@ -276,7 +290,7 @@ Deeplearning_Board/
 
 ## 배포
 
-이 프로젝트는 Hugging Face Spaces의 Docker 환경에 배포했습니다.
+이 프로젝트는 Hugging Face Spaces의 Docker 환경에 배포했습니다. Docker 빌드는 React 앱을 먼저 빌드한 뒤, FastAPI가 빌드된 정적 파일과 API를 하나의 서버에서 제공합니다.
 
 https://huggingface.co/spaces/eunzzang/Deeplearning_Board
 
