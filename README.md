@@ -1,3 +1,13 @@
+---
+title: ASL Letter Board
+emoji: 👋
+colorFrom: blue
+colorTo: green
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # ASL Letter Board
 
 Teachable Machine으로 학습한 ASL 알파벳 이미지 분류 모델을 FastAPI API와 React 화면에 연결한 프로젝트입니다.

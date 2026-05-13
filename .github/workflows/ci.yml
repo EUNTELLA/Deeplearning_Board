@@ -35,10 +35,10 @@ jobs:
       - name: Compile backend
         run: python -m compileall backend
 
-      - name: Check frontend JavaScript
+      - name: Build frontend
         run: |
-          node --check frontend/static/js/predict.js
-          node --check frontend/static/js/board.js
+          npm --prefix frontend ci
+          npm --prefix frontend run build
 
       - name: Smoke test FastAPI pages and posts
         run: |
