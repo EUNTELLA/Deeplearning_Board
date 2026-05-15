@@ -426,7 +426,6 @@ function LoveLearning() {
   const [stream, setStream] = React.useState(null);
   const [word, setWord] = React.useState("LOVE");
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const [sampleMap, setSampleMap] = React.useState({});
   const videoRef = React.useRef(null);
   const letters = React.useMemo(() => word.toUpperCase().replace(/[^A-Z]/g, "").split(""), [word]);
   const currentIndex = letters.length > 0 ? Math.min(activeIndex, letters.length - 1) : 0;
@@ -441,21 +440,6 @@ function LoveLearning() {
       alert("웹캠 권한을 허용해 주세요.");
     }
   }
-
-  React.useEffect(() => {
-    fetch("/word-images/manifest.json")
-      .then((response) => response.ok ? response.json() : [])
-      .then((items) => {
-        const nextMap = {};
-        items.forEach((item) => {
-          if (item.letter && item.display_file && !nextMap[item.letter]) {
-            nextMap[item.letter] = `/word-images/${item.display_file}`;
-          }
-        });
-        setSampleMap(nextMap);
-      })
-      .catch(() => setSampleMap({}));
-  }, []);
 
   React.useEffect(() => {
     setActiveIndex(0);
@@ -495,7 +479,7 @@ function LoveLearning() {
             >
               <h3>{letter}</h3>
               <img
-                src={sampleMap[letter] || `/word-images/letters/${letter}.jpg`}
+                src={`/test-images/${letter}_test.jpg`}
                 alt={`${letter} 손 모양`}
                 onError={(event) => { event.currentTarget.src = "/static/images/placeholder.jpg"; }}
               />
@@ -510,7 +494,7 @@ function LoveLearning() {
               <span className="letter-step">{currentIndex + 1} / {letters.length}</span>
               <h3>{activeLetter}</h3>
               <img
-                src={sampleMap[activeLetter] || `/word-images/letters/${activeLetter}.jpg`}
+                src={`/test-images/${activeLetter}_test.jpg`}
                 alt={`${activeLetter} 손 모양`}
                 onError={(event) => { event.currentTarget.src = "/static/images/placeholder.jpg"; }}
               />

@@ -107,32 +107,25 @@ ai/model/labels.txt
 
 ## 단어 학습 이미지
 
-단어 학습용 이미지는 `docs/image/words` 아래에 둡니다. 화면은 `manifest.json`에서 각 알파벳의 대표 이미지를 찾아 사용하며, 이미지가 없는 알파벳은 placeholder로 표시됩니다.
+단어 학습 화면은 `docs/image/test_image`에 있는 A-Z 테스트 이미지를 알파벳 샘플로 사용합니다. 파일명은 `{알파벳}_test.jpg` 형식을 사용합니다.
 
 ```text
-docs/image/words/
-├─ LOVE/
-│  ├─ L_01.jpg
-│  ├─ O_01.jpg
-│  ├─ V_01.jpg
-│  └─ E_01.jpg
-├─ APPLE/
-│  ├─ A_01.jpg
-│  ├─ P_01.jpg
-│  ├─ P_02.jpg
-│  ├─ L_01.jpg
-│  └─ E_01.jpg
-└─ manifest.json
+docs/image/test_image/
+├─ A_test.jpg
+├─ B_test.jpg
+├─ C_test.jpg
+...
+└─ Z_test.jpg
 ```
 
-FastAPI는 이 폴더를 `/word-images` 경로로 제공합니다.
+FastAPI는 이 폴더를 `/test-images` 경로로 제공합니다.
 
 ```text
-http://127.0.0.1:8000/word-images/LOVE/L_01.jpg
-http://127.0.0.1:8000/word-images/APPLE/P_02.jpg
+http://127.0.0.1:8000/test-images/A_test.jpg
+http://127.0.0.1:8000/test-images/Z_test.jpg
 ```
 
-현재는 LOVE, APPLE에 포함된 일부 알파벳 샘플을 사용합니다. A-Z 전체 샘플 이미지를 보강하면 사용자가 입력하는 대부분의 단어를 더 자연스럽게 학습할 수 있습니다.
+현재 이미지는 테스트용이라 다소 어두울 수 있습니다. 이후 밝기와 배경을 보정한 A-Z 대표 이미지를 같은 파일명으로 교체하면 화면 로직을 바꾸지 않고 품질을 개선할 수 있습니다.
 
 ## API
 
@@ -226,6 +219,9 @@ Deeplearning_Board/
 │  └─ app.db
 ├─ docs/
 │  └─ image/
+│     ├─ test_image/
+│     │  ├─ A_test.jpg
+│     │  └─ ...
 │     └─ words/
 │        ├─ LOVE/
 │        ├─ APPLE/
@@ -259,6 +255,9 @@ https://huggingface.co/spaces/eunzzang/Deeplearning_Board
 - 장기 저장이 필요하면 별도 데이터베이스나 persistent storage가 필요합니다.
 - 첫 빌드는 TensorFlow 설치 때문에 시간이 걸릴 수 있습니다.
 
+## 현재 한계와 향후 개선
+
+- 현재 단어 학습 샘플은 테스트용 이미지라 밝기와 배경 품질을 추가로 보정할 수 있습니다.
 - 이미지 분류 모델은 조명, 배경, 손 위치, 카메라 각도에 영향을 받을 수 있습니다.
 - 단어 학습 화면의 웹캠은 현재 자동 채점이 아닌 거울 비교 용도입니다.
 - 모델 정확도가 충분히 개선되면 글자별 수동 확인 기능을 추가할 수 있습니다.

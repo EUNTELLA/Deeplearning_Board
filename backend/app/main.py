@@ -22,6 +22,11 @@ app.mount(
     StaticFiles(directory=BASE_DIR / "docs" / "image" / "words"),
     name="word_images",
 )
+app.mount(
+    "/test-images",
+    StaticFiles(directory=BASE_DIR / "docs" / "image" / "test_image"),
+    name="test_images",
+)
 if (REACT_DIST_DIR / "assets").exists():
     app.mount(
         "/assets",
