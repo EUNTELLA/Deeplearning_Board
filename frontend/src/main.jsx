@@ -520,7 +520,7 @@ function LoveLearning() {
           <p className="empty-state">A-Z 영어 알파벳으로 단어를 입력해 주세요.</p>
         )}
       </section>
-      <footer><p>&copy; 2023 ASL Learning Board</p></footer>
+      <footer><p>&copy; 2026 ASL Learning Board</p></footer>
     </>
   );
 }
