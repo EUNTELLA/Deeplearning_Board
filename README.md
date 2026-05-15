@@ -4,7 +4,7 @@
 Teachable Machine으로 학습한 ASL 알파벳 이미지 분류 모델을 FastAPI와 React 화면에 연결한 프로젝트입니다.
 사용자는 이미지 업로드 또는 웹캠 촬영으로 ASL A-Z 알파벳을 예측하고, 예측 결과를 게시판에 저장해 학습 기록처럼 관리할 수 있습니다.
 
-단어 학습 화면은 특정 단어만 보여주는 방식에서 벗어나, 사용자가 원하는 영어 단어를 입력하면 각 알파벳의 ASL 샘플 이미지를 순서대로 확인하는 방식으로 개선했습니다. 모델 판정이 아직 완전히 안정적이지 않은 점을 고려해, 학습 화면에서는 자동 채점보다 웹캠을 거울처럼 사용해 샘플과 자신의 손 모양을 직접 비교하는 흐름에 집중했습니다.
+단어 학습 화면은 `/learning` 경로에서 제공합니다. 특정 단어만 보여주는 방식에서 벗어나, 사용자가 원하는 영어 단어를 입력하면 각 알파벳의 ASL 샘플 이미지를 순서대로 확인하는 방식으로 개선했습니다. 모델 판정이 아직 완전히 안정적이지 않은 점을 고려해, 학습 화면에서는 자동 채점보다 웹캠을 거울처럼 사용해 샘플과 자신의 손 모양을 직접 비교하는 흐름에 집중했습니다.
 
 ![Teachable Machine 학습 화면](docs/image/teachable_machine_page.png)
 
@@ -18,7 +18,9 @@ Teachable Machine으로 학습한 ASL 알파벳 이미지 분류 모델을 FastA
 - 게시글 제목 수정 및 삭제
 - 원하는 영어 단어를 입력해 ASL 알파벳 샘플을 순서대로 학습
 - 웹캠 거울 모드로 샘플 사진과 내 손 모양 비교
+- React SPA 라우팅으로 `/learning`, `/classify`, `/board`, `/post/{id}` 직접 접속 지원
 - SQLite 기반 로컬 데이터 저장
+
 
 ## 화면 구성
 
@@ -63,6 +65,15 @@ npm run build
 cd ..
 ```
 
+Windows PowerShell에서 `npm.ps1` 실행 정책 오류가 나면 `npm.cmd`를 사용합니다.
+
+```powershell
+cd frontend
+npm.cmd install
+npm.cmd run build
+cd ..
+```
+
 FastAPI 서버를 실행합니다.
 
 ```bash
@@ -83,6 +94,7 @@ http://127.0.0.1:8000
 cd frontend
 npm run dev
 ```
+
 
 ## 모델 파일
 
@@ -247,7 +259,18 @@ Deeplearning_Board/
 
 이 프로젝트는 Hugging Face Spaces의 Docker 환경에 배포했습니다. Docker 빌드는 React 앱을 먼저 빌드한 뒤, FastAPI가 빌드된 정적 파일과 API를 하나의 서버에서 제공합니다.
 
+
+서비스 URL:
+
+```text
 https://huggingface.co/spaces/eunzzang/Deeplearning_Board
+```
+
+Space 설정은 README 상단의 YAML 메타데이터를 사용합니다. 이 값이 빠지면 Hugging Face에서 `Missing configuration in README` 오류가 날 수 있습니다.
+
+```yaml
+sdk: docker
+```
 
 주의:
 
