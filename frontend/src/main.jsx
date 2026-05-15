@@ -424,8 +424,13 @@ function PostDetail({ id }) {
 
 function LoveLearning() {
   const [stream, setStream] = React.useState(null);
+  const [word, setWord] = React.useState("LOVE");
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [sampleMap, setSampleMap] = React.useState({});
   const videoRef = React.useRef(null);
-  const letters = ["L", "O", "V", "E"];
+  const letters = React.useMemo(() => word.toUpperCase().replace(/[^A-Z]/g, "").split(""), [word]);
+  const currentIndex = letters.length > 0 ? Math.min(activeIndex, letters.length - 1) : 0;
+  const activeLetter = letters[currentIndex] || "";
 
   async function startPractice() {
     try {
@@ -438,6 +443,25 @@ function LoveLearning() {
   }
 
   React.useEffect(() => {
+    fetch("/word-images/manifest.json")
+      .then((response) => response.ok ? response.json() : [])
+      .then((items) => {
+        const nextMap = {};
+        items.forEach((item) => {
+          if (item.letter && item.display_file && !nextMap[item.letter]) {
+            nextMap[item.letter] = `/word-images/${item.display_file}`;
+          }
+        });
+        setSampleMap(nextMap);
+      })
+      .catch(() => setSampleMap({}));
+  }, []);
+
+  React.useEffect(() => {
+    setActiveIndex(0);
+  }, [word]);
+
+  React.useEffect(() => {
     if (videoRef.current && stream) videoRef.current.srcObject = stream;
     return () => stream?.getTracks().forEach((track) => track.stop());
   }, [stream]);
@@ -446,26 +470,71 @@ function LoveLearning() {
     <>
       <section className="page-heading">
         <p className="eyebrow">Word Learning</p>
-        <h1>LOVE 표현 학습</h1>
-        <p>다음은 LOVE를 표현하는 ASL 알파벳 사진들입니다. 각 글자를 학습해보세요.</p>
+        <h1>단어 ASL 알파벳 학습</h1>
+        <p>원하는 영어 단어를 입력하고 알파벳별 ASL 손 모양을 순서대로 확인하세요.</p>
       </section>
-      <section>
+      <section className="word-learning">
+        <div className="word-input-panel">
+          <label htmlFor="wordInput">학습할 단어</label>
+          <input
+            id="wordInput"
+            value={word}
+            maxLength={18}
+            placeholder="예: LOVE, APPLE, HELLO"
+            onChange={(event) => setWord(event.target.value)}
+          />
+        </div>
+
         <div className="love-letters">
-          {letters.map((letter) => (
-            <div className="letter" key={letter}>
+          {letters.map((letter, index) => (
+            <button
+              type="button"
+              className={`letter letter-choice ${index === currentIndex ? "is-active" : ""}`}
+              key={`${letter}-${index}`}
+              onClick={() => setActiveIndex(index)}
+            >
               <h3>{letter}</h3>
-              <img src={`/word-images/LOVE/${letter}_01.jpg`} alt={`${letter} 손 모양`} onError={(event) => { event.currentTarget.src = "/static/images/placeholder.jpg"; }} />
-              <p>{letter}의 ASL 표현 설명</p>
-            </div>
+              <img
+                src={sampleMap[letter] || `/word-images/letters/${letter}.jpg`}
+                alt={`${letter} 손 모양`}
+                onError={(event) => { event.currentTarget.src = "/static/images/placeholder.jpg"; }}
+              />
+              <p>{index + 1}번째 글자</p>
+            </button>
           ))}
         </div>
-        <div className="practice">
-          <h3>연습하기</h3>
-          <p>웹캠을 사용하여 LOVE를 표현해보세요.</p>
-          <button type="button" onClick={startPractice}><Camera size={18} /> 연습 시작</button>
-          <video ref={videoRef} width="640" height="480" autoPlay playsInline muted />
-          <canvas width="640" height="480" />
-        </div>
+
+        {letters.length > 0 ? (
+          <div className="practice-compare">
+            <div className="letter focus-letter">
+              <span className="letter-step">{currentIndex + 1} / {letters.length}</span>
+              <h3>{activeLetter}</h3>
+              <img
+                src={sampleMap[activeLetter] || `/word-images/letters/${activeLetter}.jpg`}
+                alt={`${activeLetter} 손 모양`}
+                onError={(event) => { event.currentTarget.src = "/static/images/placeholder.jpg"; }}
+              />
+              <p>{activeLetter} 손 모양을 웹캠 거울로 비교해보세요.</p>
+              <div className="letter-controls">
+                <button type="button" className="secondary-btn" onClick={() => setActiveIndex(Math.max(0, currentIndex - 1))} disabled={currentIndex === 0}>
+                  <ChevronLeft size={18} /> 이전
+                </button>
+                <button type="button" onClick={() => setActiveIndex(Math.min(letters.length - 1, currentIndex + 1))} disabled={currentIndex === letters.length - 1}>
+                  다음
+                </button>
+              </div>
+            </div>
+            <div className="practice">
+              <h3>거울 연습</h3>
+              <p>판정 없이 웹캠 화면으로 내 손 모양을 샘플과 직접 비교합니다.</p>
+              <button type="button" onClick={startPractice}><Camera size={18} /> 웹캠 켜기</button>
+              <video ref={videoRef} width="640" height="480" autoPlay playsInline muted />
+              <canvas width="640" height="480" />
+            </div>
+          </div>
+        ) : (
+          <p className="empty-state">A-Z 영어 알파벳으로 단어를 입력해 주세요.</p>
+        )}
       </section>
       <footer><p>&copy; 2023 ASL Learning Board</p></footer>
     </>

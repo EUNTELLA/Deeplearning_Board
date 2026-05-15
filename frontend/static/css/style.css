@@ -95,6 +95,12 @@ button:active {
     transform: translateY(0);
 }
 
+button:disabled {
+    cursor: not-allowed;
+    opacity: .55;
+    transform: none;
+}
+
 .main-ui {
     opacity: 1;
     transform: translateY(0);
@@ -660,11 +666,64 @@ button:active {
     color: #a23c47;
 }
 
+.word-learning {
+    display: grid;
+    gap: 22px;
+}
+
+.word-input-panel {
+    display: grid;
+    gap: 8px;
+    padding: 18px;
+    background: var(--panel);
+    border: 3px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 4px 5px 0 rgba(108, 67, 40, .9);
+}
+
+.word-input-panel label {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.word-input-panel input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 14px;
+    border: 2px solid rgba(108, 67, 40, .28);
+    border-radius: 8px;
+    background: #ffffff;
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.practice-compare {
+    display: grid;
+    grid-template-columns: minmax(260px, .92fr) minmax(320px, 1.08fr);
+    gap: 18px;
+    align-items: stretch;
+}
+
+.letter-step {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.letter-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 .love-letters {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 18px;
-    margin-bottom: 26px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
 }
 
 .letter {
@@ -698,9 +757,35 @@ footer p {
     color: var(--muted);
 }
 
+.letter-choice {
+    cursor: pointer;
+    gap: 8px;
+    padding: 12px;
+    text-align: left;
+}
+
+.letter-choice h3 {
+    font-size: 28px;
+}
+
+.letter-choice p {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.letter-choice:hover {
+    background: var(--panel-soft);
+}
+
+.letter-choice.is-active {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
+}
+
 .practice {
     display: grid;
     gap: 14px;
+    align-content: start;
     padding: 22px;
     background: var(--panel);
     border: 3px solid var(--line);
@@ -713,6 +798,8 @@ footer p {
     width: 100%;
     max-width: 640px;
     aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transform: scaleX(-1);
     border-radius: 8px;
     background: var(--panel-soft);
     border: 2px solid rgba(108, 67, 40, .22);
@@ -856,6 +943,10 @@ footer {
     .predict-layout,
     .predict-layout:has(#resultBox:not([hidden])),
     .detail-card {
+        grid-template-columns: 1fr;
+    }
+
+    .practice-compare {
         grid-template-columns: 1fr;
     }
 
