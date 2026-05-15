@@ -9,3 +9,5 @@ venv/
 data/*.db
 data/*.db-*
 *.log
+frontend/node_modules/
+frontend/dist/

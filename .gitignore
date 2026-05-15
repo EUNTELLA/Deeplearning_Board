@@ -7,3 +7,7 @@ venv/
 .vscode/
 data/*.db
 data/*.db-*
+ppt_outline.md
+.hf_space_push/
+frontend/node_modules/
+frontend/dist/
