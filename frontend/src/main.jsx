@@ -38,7 +38,7 @@ function Navbar({ path }) {
       <nav>
         <Link href="/" current={path === "/"}>홈</Link>
         <Link href="/classify" current={path === "/classify"}>분류</Link>
-        <Link href="/love-learning" current={path === "/love-learning"}>단어 학습</Link>
+        <Link href="/learning" current={path === "/learning"}>단어 학습</Link>
         <Link href="/board" current={path === "/board"}>게시판</Link>
       </nav>
     </header>
@@ -69,7 +69,7 @@ function Home() {
           <p>웹캠이나 이미지를 통해 ASL 알파벳 A부터 Z까지 대략적으로 구분하고, 결과를 게시판에 저장해 간단한 학습 기록처럼 관리할 수 있습니다.</p>
           <div className="home-actions">
             <Link className="button-link" href="/classify">분류 시작</Link>
-            <Link className="button-link secondary-link" href="/love-learning">단어 학습하기</Link>
+            <Link className="button-link secondary-link" href="/learning">단어 학습하기</Link>
             <Link className="button-link secondary-link" href="/board">학습 기록 보기</Link>
           </div>
         </div>
@@ -649,10 +649,10 @@ function App() {
       {path === "/" && <Home />}
       {path === "/classify" && <Classify />}
       {path === "/board" && <Board />}
-      {path === "/love-learning" && <LoveLearning />}
+      {path === "/learning" && <LoveLearning />}
       {path === "/webcam-test" && <WebcamTest />}
       {postMatch && <PostDetail id={postMatch[1]} />}
-      {!["/", "/classify", "/board", "/love-learning", "/webcam-test"].includes(path) && !postMatch && (
+      {!["/", "/classify", "/board", "/learning", "/webcam-test"].includes(path) && !postMatch && (
         <div className="empty-state">
           <p>페이지를 찾을 수 없습니다.</p>
           <button type="button" onClick={() => navigate("/")}>

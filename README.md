@@ -41,7 +41,7 @@ Teachable Machine으로 학습한 ASL 알파벳 이미지 분류 모델을 FastA
 
 - `/`: 홈 화면
 - `/classify`: ASL 알파벳 분류 화면
-- `/love-learning`: 단어 입력형 ASL 학습 화면
+- `/learning`: 단어 입력형 ASL 학습 화면
 - `/board`: 저장된 학습 기록 게시판
 - `/post/{id}`: 게시글 상세 화면
 - `/webcam-test`: 웹캠 장치 테스트 화면
